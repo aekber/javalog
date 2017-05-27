@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:eko="http://www.javalog.net/jsf/util"
+	  xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<ui:composition template="../WEB-INF/admin/atemplate.xhtml">
+
+		<ui:define name="title">Calendaro | Amanda Admin Template</ui:define>
+	    
+	    <ui:define name="scripts">
+	    
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-1.5.2.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.cookie.js"></script>
+			<script type='text/javascript' src='#{request.contextPath}/adminci/js/plugins/fullcalendar.min.js'></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/general.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/calendar.js"></script>
+	    
+	    </ui:define>
+	    
+		<ui:define name="leftmenu">
+	    
+	    	<ui:include src="../WEB-INF/admin/leftmenu.xhtml"></ui:include>
+	    
+	    </ui:define>
+	    
+	    <ui:define name="content">
+	
+			<div class="pageheader notab">
+	            <h1 class="pagetitle">Calendar</h1>
+	            <span class="pagedesc">This is a sample description of a page</span>
+	        </div><!--pageheader-->
+	        
+	        <div id="contentwrapper" class="contentwrapper withrightpanel">
+	        
+	        	<div id="calendar"></div>
+	        
+	        </div><!--contentwrapper-->
+	        
+	        <div class="rightpanel">
+	        	<div class="rightpanelinner">
+	                <div class="widgetbox">
+	                	<div class="title"><h4>Events</h4></div>
+	                    <div class="widgetcontent">
+	                    	<div id="external-events">
+	                            <div class="external-event">My friend's birthday event</div>
+	                            <div class="external-event">My wedding</div>
+	                            <div class="external-event">Company party</div>
+	                            <div class="external-event">Island hopping event</div>
+	                            <div class="external-event">Fun run event</div>
+	                            <p>Drag the events to the calendar to set a schedule.</p>
+	                        </div>  
+	                        
+	                    </div><!--widgetcontent-->
+	                </div><!--widgetbox-->
+	            </div><!--rightpanelinner-->
+	        </div><!--rightpanel-->
+		        
+		</ui:define>
+	    
+	</ui:composition>
+	
+</html>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:ehcache="http://www.springmodules.org/schema/ehcache"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd        
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/jee
+           http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+		   http://www.springmodules.org/schema/ehcache 
+		   http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd
+		   http://www.springframework.org/schema/security 
+		   http://www.springframework.org/schema/security/spring-security-3.0.xsd
+           http://www.springframework.org/schema/util
+		   http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+	
+	<!--<import resource="applicationContext-security.xml"/>-->
+
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/application.properties</value>
+			</list>
+		</property>
+	</bean>
+       
+ 
+	
+	 
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="youremail@youremail.com" />
+		<property name="password" value="yourpassword" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<bean id="authServicePointcuts" class="org.ekber.utils.pointcuts.AuthenticationServicePointcuts" >
+		<property name="mailGonder" ref="mailManager"/>
+	</bean>
+
+
+	
+	<!-- AOP configuration ,one pointcut per aspect -->
+	<aop:config>
+<!-- 
+		<aop:pointcut id="pointcutRef" expression="execution(* org.ekber.bean.MakaleBean.hataFirlat(..))" />
+-->
+		<aop:pointcut id="pointcutException" expression="execution(public * org.ekber.dao.interfaces.IJavalog+.*(..))" />
+		
+		<aop:advisor advice-ref="myTxAdvice" pointcut-ref="pointcutException"/>
+				
+		<aop:aspect id="isExistUserMethodListeners" ref="authServicePointcuts">
+			<!--<aop:after method="afterUsernameOrPassword" pointcut-ref="pointcutRef" />-->
+			<!--<aop:before method="beforeUsernameOrPassword" pointcut-ref="pointcutRef"/>-->
+			<aop:after-throwing method="afterExceptionThrows" throwing="ex" pointcut-ref="pointcutException"/>
+		</aop:aspect>
+	</aop:config>
+	
+	
+	
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+			</props>
+		</property>
+	</bean>
+		
+	
+	<bean id="mailManager" class="org.ekber.utils.mail.MailSenderImpl">
+		<property name="mailSender" ref="mailSender" />
+		<property name="velocityEngine" ref="velocityEngine" />
+	</bean>			
+		
+		
+	<jee:jndi-lookup id="myDataSource" jndi-name="java:comp/env/jdbc/ekber"
+					 resource-ref="true" lookup-on-startup="true" proxy-interface="javax.sql.DataSource">
+	</jee:jndi-lookup>
+	
+	
+<!--	
+	<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${database.driver}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+	</bean>
+-->	
+	
+	
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		
+		<property name="mappingResources">
+			<list>
+				<value>Article.hbm.xml</value>
+				<value>SubCategory.hbm.xml</value>
+				<value>Category.hbm.xml</value>
+				<value>Comments.hbm.xml</value>
+				<value>UserRate.hbm.xml</value>
+				<value>Tag.hbm.xml</value>
+			</list>
+		</property>
+    	
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			</props>
+		</property>
+	</bean>
+	
+
+	<bean id="myTxManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+
+
+	<tx:advice id="myTxAdvice" transaction-manager="myTxManager">
+	  <tx:attributes>
+	    <tx:method name="*" propagation="REQUIRED" rollback-for="Exception" />
+	  </tx:attributes>
+	</tx:advice>
+
+
+	<bean id="genericDao" class="org.ekber.dao.GenericDaoHibernate" abstract="true">
+		<property name="sessionFactory" ref="mySessionFactory" />
+	</bean>
+	
+	
+	<!-- Article Bean Tanimlari  -->
+
+	<bean id="articleDao" class="org.ekber.dao.ArticleDaoImpl" parent="genericDao"/>
+	
+	<bean id="articleService" class="org.ekber.service.ArticleServiceImpl">
+		<property name="articleDao" ref="articleDao" />
+	</bean>
+			
+	
+	
+	<!-- Category Bean Tanimlari  -->
+
+	<bean id="categoryDao" class="org.ekber.dao.CategoryDaoImpl" parent="genericDao"/>
+
+	<bean id="categoryService" class="org.ekber.service.CategoryServiceImpl">
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
+	
+	
+	
+	<!-- SubCategory Bean Tanimlari  -->
+
+	<bean id="subCategoryDao" class="org.ekber.dao.SubCategoryDaoImpl" parent="genericDao"/>
+
+	<bean id="subCategoryService" class="org.ekber.service.SubCategoryServiceImpl">
+		<property name="subCategoryDao" ref="subCategoryDao" />
+	</bean>
+
+	
+	
+	<!-- Comments Bean Tanimlari  -->
+
+	<bean id="commentsDao" class="org.ekber.dao.CommentsDaoImpl" parent="genericDao"/>
+	
+	<bean id="commentsService" class="org.ekber.service.CommentsServiceImpl">
+		<property name="commentsDao" ref="commentsDao" />
+		<property name="mailGonder" ref="mailManager" />
+	</bean>
+	
+
+
+	<!-- Rating islemi Bean Tanimlari -->
+
+	<bean id="userRateDao" class="org.ekber.dao.UserRateDaoImpl" parent="genericDao" />
+
+	<bean id="userRateService" class="org.ekber.service.UserRateServiceImpl">
+		<property name="userRateDao" ref="userRateDao" />
+	</bean>
+	
+	
+	
+	<!-- Tag islemi Bean Tanimlari -->
+
+	<bean id="tagDao" class="org.ekber.dao.TagDaoImpl" parent="genericDao" />
+
+	<bean id="tagService" class="org.ekber.service.TagServiceImpl">
+		<property name="tagDao" ref="tagDao" />
+	</bean>
+    
+    
+    
+	<!-- JSF Bean Tanimlari -->
+	
+	<bean id="makaleBean" class="org.ekber.bean.MakaleBean" init-method="init" scope="session">
+		<property name="categoryService" ref="categoryService" />
+		<property name="subCategoryService" ref="subCategoryService" />
+		<property name="articleService"  ref="articleService" />		
+		<property name="commentsService" ref="commentsService" />
+		<property name="tagService" ref="tagService" />
+		<property name="facesSupport" ref="facesSupport"/>
+		<property name="userRateService" ref="userRateService"/>
+	</bean>
+	
+	<bean id="adminBean" class="org.ekber.bean.AdminBean" init-method="init" scope="session">
+		<property name="categoryService" ref="categoryService" />
+		<property name="subCategoryService" ref="subCategoryService" />
+		<property name="articleService"  ref="articleService" />		
+		<property name="commentsService" ref="commentsService" />
+		<property name="tagService" ref="tagService" />
+		<property name="userRateService" ref="userRateService"/>
+	</bean>
+
+
+    <bean class="org.ekber.utils.FacesSupport" id="facesSupport"/>
+
+</beans>

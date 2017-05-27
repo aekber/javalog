@@ -1,0 +1,277 @@
+
+
+
+/* Form */
+
+label {
+	display: block;
+	margin-top : 8px;
+	width: 100%;
+	background-repeat: no-repeat;
+}
+
+.blue {
+	color: #0099CC;
+	font-weight: bold;
+}
+
+/* footer */
+.dwnld {
+	Display: block;
+	padding: 10px;
+	text-align: center;
+	width: 400px;
+	margin: 0 auto;
+	border: 1px solid #EEE;
+	background-color: white;
+	color: #999;
+	font-size: 1.4em;
+	font-weight: bold;
+	line-height: 50px;
+	background: url(../resources/img/download.gif) no-repeat 40px 10px;
+}
+
+
+
+/* Congratulation message */
+.MsgSent {
+	Display: block;
+	padding: 10px;
+	margin: 40px auto;
+	width: 400px;
+	text-align: center;
+	border: 1px solid #EEE;
+	background-color: white;
+}
+
+.MsgSent h1 {
+	background: url(../resources/img/MsgSent.gif) no-repeat 0 0;
+	padding-left: 20px;
+	height: 85px;
+	line-height: 85px;
+}
+
+/* Error message */
+.MsgError {
+	Display: block;
+	padding: 10px;
+	margin: 40px auto;
+	width: 400px;
+	text-align: center;
+	border: 1px solid #EEE;
+	background-color: white;
+}
+
+.MsgError h1 {
+	background: url(../resources/img/MsgError.gif) no-repeat 0 0;
+	padding-left: 20px;
+	height: 85px;
+	line-height: 85px;
+	color: #CC0000;
+}
+
+.MsgSent p, .MsgError p {
+	font-size: 1.3em;
+	color:#999;
+}
+
+/***** FormCheck *****/
+.tipsbox .tipsbox_top_left{
+	background : url('../resources/img/top_left.png') no-repeat;
+	_background : url('../resources/img/top_left.gif') no-repeat;
+	_background-position : 9px 8px;
+}
+
+.tipsbox .tipsbox_top{
+	background : url('../resources/img/top.png') repeat-x;
+	height : 17px;
+	_background : url('../resources/img/top.gif') repeat-x;
+	_background-position : 0px 8px;
+}
+
+.tipsbox .tipsbox_top_right{
+	background : url('../resources/img/top_right.png') no-repeat;
+	_background : url('../resources/img/top_right.gif') no-repeat;
+	_background-position : 0px 8px;
+}
+
+.tipsbox .tipsbox_left{
+	background : url('../resources/img/left.png') repeat-y;
+	width : 17px;
+	_background : url('../resources/img/side.gif') repeat-y;
+	_background-position : 9px 8px;
+}
+
+.tipsbox .tipsbox_right{
+	background : url('../resources/img/right.png') repeat-y;
+	width : 22px;
+	_background : url('../resources/img/side.gif') repeat-y;
+	_width : 9px;
+}
+
+.tipsbox .tipsbox_bottom_left{
+	background : url('../resources/img/bottom_left.png');
+	_background : url('../resources/img/bottom_left.gif') no-repeat;
+	_background-position : 9px 0px;
+}
+
+.tipsbox .tipsbox_mark{
+	background : url('../resources/img/mark.png') no-repeat;
+	height : 36px;
+	_background : url('../resources/img/mark.gif') no-repeat;
+}
+
+.tipsbox .tipsbox_bottom_right{
+	background : url('../resources/img/bottom_right.png');
+	_background : url('../resources/img/bottom_right.gif') no-repeat;
+}
+
+.tipsbox .tipsbox_inner, .tipsbox .tipsbox_inner_ie6{
+	background : url('../resources/img/inner.png');
+}
+
+.tipsbox .tipsbox_inner_ie6 {
+	padding : 4px;
+}
+
+.tipsbox .tipsbox_error {
+	margin-top: 5px;
+	float: left;
+	clear: left;
+}
+
+.tipsbox p, .tipsbox {
+	font-size: 1em;
+	font-family: tahoma, verdana, "sans-serif";
+	margin : 0;
+	padding : 0;
+	border : 0;
+	color : #FFF;
+}
+
+.tipsbox p {
+	line-height: 15px;
+}
+
+.tipsbox p span {
+	font-size: 1em;
+	font-weight: bold;
+	color: red;
+	line-height: 35px;
+}
+
+
+.error_f {
+	border : 1px dotted #666;
+	margin-top : 5px;
+	background-color : #EAEAEA;
+}
+
+.error_f p {
+	margin : 5px;
+	color : #A00;
+}
+
+.error_f p span {
+	font-size : 1.1em;
+	color : #000;
+	margin : 5px 0px 0px 0px;
+}
+
+/***** Niceforms *****/
+/*##########################################
+Name: Default styling for Niceforms v.1.0
+Author: Lucian Slatineanu
+URL: http://www.badboy.ro/
+##########################################*/
+
+/*General styles - NOT really related to the forms*/
+
+
+/*Forms defaults - change as needed*/
+input, textarea {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#404040;
+}
+label {
+	color:#999;
+	cursor:pointer;
+	padding-left:2px;
+	line-height:16px;
+}
+label.chosen {color:#333;}
+
+/*Transparent items*/
+.outtaHere {
+	position:absolute;
+	left:-3000px;
+}
+
+
+/*Text inputs*/
+.textinput, .textinputHovered {
+	height:15px !important;
+	background:url(../resources/img/input_bg.gif) repeat-x left top !important;
+	border:none !important;
+	padding:4px 0 !important;
+	vertical-align:middle !important;
+}
+.textinputHovered {background-position:left bottom !important;}
+.inputCorner {
+	padding-bottom:0;
+	vertical-align:middle;
+}
+
+/*Text areas*/
+.txtarea .tr, .txtarea .tr_xon {background:url(../resources/img/txtarea_tr.gif) no-repeat top right !important;}
+.txtarea .tr_xon {background:url(../resources/img/txtarea_tr_xon.gif) no-repeat top right !important;}
+.txtarea img.txt_corner {
+	width:5px !important;
+	height:5px !important;
+	display:block !important;
+	
+}
+.txtarea .br, .txtarea .br_xon {background:url(../resources/img/txtarea_br.gif) no-repeat top right !important;}
+.txtarea .br_xon {background:url(../resources/img/txtarea_br_xon.gif) no-repeat top right !important;}
+.txtarea .cntr {background:url(../resources/img/txtarea_cntr.gif) repeat-y right top !important;}
+.txtarea .cntr_xon {background:url(../resources/img/txtarea_cntr_xon.gif) repeat-y right top !important;}
+.txtarea .cntr_l, .txtarea .cntr_l_xon {
+	width:5px !important;
+	background:url(../resources/img/txtarea_l.gif) repeat-y left top !important;
+	float:left !important;
+}
+.txtarea .cntr_l_xon {background:url(../resources/img/txtarea_l_xon.gif) repeat-y left top !important;}
+.txtarea textarea {
+	border:0 !important;
+	background:none !important;
+	padding:0 !important;
+	margin:5px !important;
+}
+
+
+
+/*Button*/
+.buttonSubmit, .buttonSubmitHovered {
+	width:auto !important;
+	height:26px !important;
+	color:#FFF !important;
+	font-weight:bold !important;
+	padding:2px !important;
+	background:url(../resources/img/button_bg.gif) repeat-x left top !important;
+	cursor:pointer !important;
+	border:none !important;
+}
+.buttonSubmitHovered {background-position:left bottom !important;}
+.buttonImg {vertical-align:bottom !important;}
+
+
+/*Tag CSS*/
+.article-tag{
+	text-decoration: none;
+}
+
+a.article-tag:hover {
+
+}
+

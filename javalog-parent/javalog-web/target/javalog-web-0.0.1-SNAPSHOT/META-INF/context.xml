@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+
+    
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    	
+
+	<Resource name="jdbc/ekber" 
+			  auth="Container" 
+			  type="javax.sql.DataSource"
+			  factory="org.apache.tomcat.dbcp.dbcp.BasicDataSourceFactory"
+		      maxActive="30" 
+		      maxIdle="10" 
+		      maxWait="10000"
+			  url="jdbc:mysql://localhost:3306/jsf"
+		      driverClassName="com.mysql.jdbc.Driver" 
+		      username="root" 
+		      password="123"
+		      validationQuery="select 1" 
+		      description="Mysql Datasource yapilandirmasi" />
+
+	  <Realm name="ekoAuth"
+	  		 className="org.apache.catalina.realm.DataSourceRealm"
+         	 dataSourceName="jdbc/ekber"
+         	 userTable="user" 
+	         userNameCol="user_name" 
+	         userCredCol="user_pass"
+	         userRoleTable="user_role" 
+	         roleNameCol="role_name"
+	         localDataSource="true" 
+	         digest="md5" />
+
+</Context>

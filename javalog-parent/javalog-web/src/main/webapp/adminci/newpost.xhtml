@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:eko="http://www.javalog.net/jsf/util"
+	  xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<ui:composition template="../WEB-INF/admin/atemplate.xhtml">
+
+		<ui:define name="title">New Post | Amanda Admin Template</ui:define>
+		
+		<ui:define name="scripts">
+	    	
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-1.7.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.cookie.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.alerts.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.uniform.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.validate.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.tagsinput.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/charCount.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/ui.spinner.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/chosen.jquery.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/forms.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/general.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/blog.js"></script>
+	    
+	    </ui:define>
+		
+		<ui:define name="leftmenu">
+	
+		    <div class="vernav">
+		    	<ul>
+		        	<li><a href="/faces/zekber/javalog/administration/manageblog/">Posts</a></li>
+		            <li class="current"><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/newpost/" class="editor">Create New Post</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/comments/">Comments</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/articles/">Articles</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/subcategories/">Subcategories</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/categories/">Categories</a></li>
+		        </ul>
+		        <a class="togglemenu"></a>
+		    </div><!--leftmenu-->
+	    
+	    </ui:define>
+		
+		<ui:define name="content">
+		
+			<div class="pageheader">
+	            <h1 class="pagetitle">Forms</h1>
+	            <span class="pagedesc">The content below are loaded using inline data</span>
+	            
+	            <ul class="hornav">
+	                <li class="current"><a href="#basicform">Basic</a></li>
+	                <li><a href="#validation">Validation</a></li>
+	            </ul>
+	        </div><!--pageheader-->
+	        
+	        <div class="contentwrapper" id="contentwrapper">
+							    
+		       	<a4j:outputPanel id="basicform" layout="block" styleClass="subcontent">		                    
+					        
+					     	<div class="contenttitle2">
+		                        <h3>Create Article</h3>
+		                    </div><!--contenttitle-->
+		                    
+				    		<h:form id="createNewPost" styleClass="stdform" prependId="false" >
+		                    
+			                    <p>
+		                        	<label>Category Name</label>
+		                            <span class="formwrapper">
+										<h:selectOneMenu id="cate" styleClass="uniformselect" value="#{adminBean.newArticle.subcategory.category.articlecategory}" valueChangeListener="#{adminBean.valueChanged}">
+								            <f:selectItems value="#{adminBean.firstList}" />
+								            <a4j:ajax event="valueChange" render="subcate" execute="@this" />
+								        </h:selectOneMenu>
+		                            </span>
+		                        </p>	
+
+		                        <p>
+		                        	<label>Subategory Name</label>
+		                            <span class="field">
+							            <h:selectOneMenu id="subcate" value="#{adminBean.newArticle.subcategory.subCategoryName}">
+							                <f:selectItems value="#{adminBean.secondList}" />
+							            </h:selectOneMenu>
+		                            </span>
+		                        </p> 
+
+		                        <p>
+		                        	<label>Article Name</label>
+		                            <span class="field">
+			                            <h:inputText id="catval" value="#{adminBean.newArticle.articleTag}" styleClass="smallinput">
+			                            	<rich:placeholder value="Makale ismini giriniz..." />
+			                            </h:inputText>
+		                            </span>
+		                        </p>   
+
+		                        <p>
+		                        	<label>Input Tags</label>
+		                            <span class="field">
+		                            	<h:inputText name="tags" id="tags" styleClass="longinput" value="#{adminBean.tags}"/>
+		                            </span>
+		                        </p>                               	                        	                                                		                        
+					        
+					        <p>
+						        <label>Preview</label>
+						        <span class="field">
+						        	<h:inputTextarea id="prev" value="#{adminBean.newArticle.preview}">
+						        		<rich:placeholder value="Preview giriniz..." />
+			                        </h:inputTextarea>
+						        </span>
+					        </p>
+					        
+
+						        <rich:editor id="editor" toolbar="full" skin="kama" value="#{adminBean.newArticle.content}" style="margin-bottom: 2em;">
+						            <a4j:ajax event="change" render="panel" status="panelUpdateStatus" />
+						            <a4j:ajax event="dirty" render="panel" status="panelUpdateStatus">
+						                <a4j:attachQueue requestDelay="1000" />
+						            </a4j:ajax>
+						        </rich:editor>
+
+					         
+					        <rich:panel id="panel">
+					            <f:facet name="header">
+					                Output from Editor
+					                <a4j:status name="panelUpdateStatus">
+					                    <f:facet name="start">
+					                        (Updating)
+					                    </f:facet>
+					                </a4j:status>
+					            </f:facet>
+					            <h:outputText escape="false" value="#{adminBean.newArticle.content}" />
+					        </rich:panel>
+					        
+					        <br />
+							<br />
+							
+					        <p class="stdformbutton">
+	                        	<h:commandButton id="btn_crt" value="Create" action="#{adminBean.createArticle()}" styleClass="submit radius2">
+	                        		<f:ajax execute="@form" />
+	                        	</h:commandButton>
+	                        	<h:commandButton id="btn_upd" value="Update" action="#{adminBean.updateArticle()}" style="margin-left: 10px;" styleClass="submit radius2">
+	                        		<f:ajax execute="@form" />
+	                        	</h:commandButton>
+	                        </p>
+					        
+				    </h:form>
+
+				</a4j:outputPanel>
+    
+    			<div id="validation" class="subcontent" style="display: none">
+	            	
+	                    <form id="form1" class="stdform" method="post" action="">
+	                    	<p>
+	                        	<label>First Name</label>
+	                            <span class="field"><input type="text" name="firstname" id="firstname" class="longinput" /></span>
+	                        </p>
+	                        
+	                        <p>
+	                        	<label>Last Name</label>
+	                            <span class="field"><input type="text" name="lastname" id="lastname" class="longinput" /></span>
+	                        </p>
+	                        
+	                        <p>
+	                        	<label>Email</label>
+	                            <span class="field"><input type="text" name="email" id="email" class="longinput" /></span>
+	                        </p>
+	                        
+	                        <p>
+	                        	<label>Location</label>
+	                            <span class="field"><textarea cols="80" rows="5" name="location" class="mediuminput" id="location"></textarea></span> 
+	                        </p>
+	                        
+	                        <p>
+	                        	<label>Select</label>
+	                            <span class="field">
+	                            <select name="selection" id="selection">
+	                            	<option value="">Choose One</option>
+	                                <option value="1">Selection One</option>
+	                                <option value="2">Selection Two</option>
+	                                <option value="3">Selection Three</option>
+	                                <option value="4">Selection Four</option>
+	                            </select>
+	                            </span>
+	                        </p>
+	                        
+	                        <br />
+	                        
+	                        <p class="stdformbutton">
+	                        	<button class="submit radius2">Submit Button</button>
+	                        </p>
+	                    </form>
+	
+	            </div><!--subcontent-->
+	            
+			</div><!-- contentwrapper -->
+			
+		</ui:define>
+	
+	</ui:composition>
+	
+</html>

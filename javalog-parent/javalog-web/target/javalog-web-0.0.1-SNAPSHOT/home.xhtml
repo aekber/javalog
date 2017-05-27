@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+      			xmlns:rich="http://richfaces.org/rich"
+      			xmlns:c="http://java.sun.com/jstl/core"
+      			xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      			xmlns:pretty="http://ocpsoft.com/prettyfaces"
+      			xmlns:eko="http://www.javalog.net/jsf/util"
+                template="template.xhtml">
+    	   	
+    <ui:define name="title">Bir Javalogun Gunlugu</ui:define>	
+    
+    <ui:define name="content">		
+
+		<a4j:repeat var="article" value="#{makaleBean.recentArticles}" rowKeyVar="say">	
+		
+				<div class="home-post">
+				<!--  
+					<div class="share-box">
+						<div id="stars" style="float: left;">
+							<eko:printStars starRate="#{article.previewStar}" previewCount="#{fn:length(article.articleRates)}" />
+						</div>
+					</div>
+				-->	
+					<div class="post-category">
+						<pretty:link mappingId="kategori" styleClass="prettyl2" title="#{article.subcategory.subCategoryName} Kategorisindeki tum makaleler icin tiklayin">
+							<f:param value="#{article.subcategory.subcatId}"/>	
+							<f:param value="#{article.subcategory.subCategoryName}"/>				
+							#{article.subcategory.subCategoryName}
+						</pretty:link>
+					</div>
+					
+					
+					<pretty:link mappingId="gonder" styleClass="prettyl">
+						<f:param value="#{article.articleid}"/>
+						<f:param value="#{article.articleTag}"/>
+						#{article.articleTag}
+					</pretty:link>
+							
+								
+					<ul class="postinfo" style="margin-bottom: 14px; ">
+						<li><h:outputText value="#{article.insertdate}"><f:convertDateTime dateStyle="medium" timeZone="Europe/Istanbul" type="date" /></h:outputText></li>
+						<li><a href="/faces/article/#{article.articleid}/#{article.articleTag}#comments2" style="text-decoration: none;"><span class="count">#{fn:length(article.comments)}</span> Yorum</a></li>
+						<li><span class="count">#{article.popularity}</span> kez görüntülendi</li>								
+					</ul>
+	
+					<div class="image-left">
+						<img src="#{request.contextPath}/img/#{say+1}.jpg"/>
+					</div>
+				
+					<div class="excerpt">
+						<strong>Bu web sayfasi tasarim asamasindadir.Bu sebeple test amacli icerikler yayinlanmakta olup,gercekleri yansitmamaktadir.Bilgilerinize... (iletisim icin <a href="mailto:admin@javalog.net">admin</a>)</strong>
+								<strong>This web site is under construction.So that,sample test contents are being published and they don't reflect the truth.For your kind attention...(contact <a href="mailto:admin@javalog.net">admin</a>)</strong>
+								Internet Explorer 6 was a terrible browser. Its popularity and its not respect of standards was for long time the nightmare of every web developers: now that it’s almost dead, it’s an useless fury to prolong their suffering.
+								 
+								<pretty:link mappingId="gonder" >
+									<f:param value="#{article.articleid}"/>
+									<f:param value="#{article.articleTag}"/>
+									<img src="#{request.contextPath}/img/read-more.png" alt="Devamını Oku" style="border:none;"/>
+								</pretty:link>
+					</div>
+									
+					<span class="related-section">Etiketler -
+						<a4j:repeat var="tag" value="#{article.articleTags}">
+							<pretty:link mappingId="tag" style="text-decoration: none;">
+								<f:param value="#{tag.tagName}"/>
+								#{tag.tagName},
+							</pretty:link>
+						</a4j:repeat>
+					</span>
+							
+					<div class="sp"></div>
+				
+				</div>
+		</a4j:repeat>
+		
+	</ui:define>
+
+</ui:composition>

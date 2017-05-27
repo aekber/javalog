@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:eko="http://www.javalog.net/jsf/util"
+	  xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<ui:composition template="../WEB-INF/admin/atemplate.xhtml">
+
+		<ui:define name="title">Categories | Amanda Admin Template</ui:define>
+		
+		<ui:define name="scripts">
+	    	
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-1.7.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.cookie.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.alerts.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.uniform.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.validate.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.tagsinput.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/charCount.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/ui.spinner.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/chosen.jquery.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/forms.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/general.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/blog.js"></script>
+	    
+	    </ui:define>
+		
+		<ui:define name="leftmenu">
+	
+		    <div class="vernav">
+		    	<ul>
+		        	<li><a href="/faces/zekber/javalog/administration/manageblog/">Posts</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/newpost/">Create New Post</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/comments/">Comments</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/articles/">Articles</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/subcategories/">Subcategories</a></li>
+		            <li class="current"><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/categories/" class="editor">Categories</a></li>
+		        </ul>
+		        <a class="togglemenu"></a>
+		    </div><!--leftmenu-->
+	    
+	    </ui:define>
+		
+		<ui:define name="content">
+		
+				<div class="pageheader">
+	            <h1 class="pagetitle">Kategoriler</h1>
+
+	        </div><!--pageheader-->
+	        
+	        <div class="contentwrapper" id="contentwrapper">
+				<div class="contenttitle">
+					<h4>Categories</h4>
+				</div><!--contenttitle-->	
+				
+				<h:form id="frm_table">			 
+				
+					
+			        <rich:dataTable value="#{adminBean.allCategories}" var="category" 
+			        	iterationStatusVar="it" id="cat_table" rows="15" styleClass="stdtable blogtable">
+			           	<rich:column>
+			                <f:facet name="header">Sıra</f:facet>
+			                <h:outputText styleClass="con0" value="#{it.index+1}" />
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">Category ID</f:facet>
+			                <h:outputText styleClass="con0" value="#{category.catid}" />
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">Category Name</f:facet>
+			                <h:outputText styleClass="con0" value="#{category.articlecategory}" />
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">Subcategory Count</f:facet>
+			                <h:outputText styleClass="con1" value="#{fn:length(category.subCat)}" />
+			            </rich:column>		
+			            <rich:column styleClass="actions aligncenter">
+			                <a class="duzenle" href="#">Edit</a> 
+							<a class="delete" href="">Delete</a>							
+			            </rich:column>	
+			            <rich:column>
+			                <a4j:commandLink execute="@this" render="@none"
+			                    oncomplete="if(#{category.subCat.size() > 0}){ #{rich:component('stopPane')}.show();} else{ #{rich:component('confirmPane')}.show();}">
+			                    <h:graphicImage value="#{requestScope.contextPath}/resources/img/delete.gif" alt="delete" />
+			                    <f:setPropertyActionListener target="#{adminBean.editedCategory}" value="#{category}" />
+			                </a4j:commandLink>
+			                <a4j:commandLink render="editGrid" execute="@this"
+			                    oncomplete="#{rich:component('editPane')}.show()">
+			                    <h:graphicImage value="#{requestScope.contextPath}/resources/img/edit.gif" alt="edit" />
+			                    <f:setPropertyActionListener target="#{adminBean.editedCategory}" value="#{category}" />
+			                </a4j:commandLink>
+			            </rich:column>        
+
+			            <f:facet name="footer">
+			            
+			            </f:facet>
+
+			        </rich:dataTable>
+			        
+			        <a4j:jsFunction name="remove" action="#{adminBean.deleteCategory}" render="cat_table" execute="@this"
+			            oncomplete="#{rich:component('confirmPane')}.hide();" />
+			 
+			        <rich:popupPanel id="statPane" autosized="true">
+			            <h:graphicImage value="#{requestScope.contextPath}/resources/images/ajax-loader.gif" alt="ai" />
+			            Please wait...
+			        </rich:popupPanel>
+			 
+			        <rich:popupPanel id="confirmPane" autosized="true">
+			            Silmek istediğinize emin misiniz? 
+			            <a4j:commandButton value="Sil" onclick="remove(); return false;" />
+			            <a4j:commandButton value="İptal" onclick="#{rich:component('confirmPane')}.hide(); return false;" />
+			        </rich:popupPanel>
+			        
+			        <rich:popupPanel id="stopPane" autosized="true">
+			            Bu kategoriye bağlı altkategoriler oldugundan silinemez ! 
+			            <a4j:commandButton value="Tamam" onclick="#{rich:component('stopPane')}.hide(); return false;" />
+			        </rich:popupPanel>
+			 
+			        <rich:popupPanel header="Edit Category Details" id="editPane" domElementAttachment="parent" width="250" height="120">
+			            <h:panelGrid columns="3" id="editGrid">
+			                <h:outputText value="Category Name" />
+			                <h:inputText value="#{adminBean.editedCategory.articlecategory}" />
+			                <h:panelGroup />
+			            </h:panelGrid>
+			            <a4j:commandButton value="Kaydet" action="#{adminBean.updateCategory}" render="cat_table" execute="editPane"
+			                oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editPane')}.hide();}" />
+			            <a4j:commandButton value="İptal" style="margin-left:10px;" onclick="#{rich:component('editPane')}.hide(); return false;" />
+			        </rich:popupPanel>
+
+			    </h:form>
+			    
+			    <a4j:outputPanel id="basicform" layout="block" styleClass="subcontent">
+	                                
+	                    <div class="contenttitle2">
+	                        <h3>Create Category</h3>
+	                    </div><!--contenttitle-->
+	
+	                    <h:form id="createCategory" styleClass="stdform" >
+	                    	
+	                        <p>
+	                        	<label>Category Name</label>
+	                            <span class="field">
+		                            <h:panelGrid columns="2" id="editCategory">
+		                            	<h:inputText id="catval" value="#{adminBean.newCategoryName}" styleClass="smallinput" required="true" requiredMessage="Bu alan zorunludur !">
+		                            		<rich:placeholder value="Kategori ismini giriniz..." />
+		                            	</h:inputText>
+		                            	<rich:message id="catMsg" for="catval" />
+		                            </h:panelGrid>
+	                            </span>
+	                            <small class="desc">Small description of this field.</small>
+	                        </p>	                       
+	                        
+	                                                
+	                        <p class="stdformbutton">
+	                        	<h:commandButton id="btn_create" value="Create" action="#{adminBean.createCategory()}" styleClass="submit radius2">
+	                        		<f:ajax render=":frm_table:cat_table" execute="@form" />
+	                        	</h:commandButton>
+	                        	<h:commandButton value="Cancel" style="margin-left: 10px;" styleClass="submit radius2" />
+	                        </p>
+	                    </h:form>
+						
+	                    <br />
+	
+	            </a4j:outputPanel> <!--subcontent-->
+    
+			</div><!-- contentwrapper -->
+			
+		</ui:define>
+	
+	</ui:composition>
+	
+</html>

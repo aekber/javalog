@@ -1,0 +1,148 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                xmlns:eko="http://www.javalog.net/jsf/util"
+                template="template.xhtml">
+                
+    <ui:define name="title">Etiketler</ui:define>
+     
+    <ui:define name="tags">
+    	<a4j:repeat var="tagdto" value="#{makaleBean.tagCloud}">
+			<pretty:link mappingId="tag" styleClass="tagdto" style="font-size: #{tagdto.tagFrequency}px;">
+				<f:param value="#{tagdto.tagName}"/>
+				#{tagdto.tagName}
+			</pretty:link>
+		</a4j:repeat>
+    </ui:define>
+    
+    <ui:define name="archive">
+		<h:form id="arsiv" prependId="false">
+			<rich:tree id="arsiv_tree" toggleType="client"
+				value="#{makaleBean.archiveNodes}" var="node"
+				nodeType="#{node.type}"
+				selectionChangeListener="#{makaleBean.processAdvancedTreeNodeSelectedArchive}"
+				selectionType="ajax">
+
+				<rich:treeNode id="yearNode" type="year">
+					<h:outputText value="#{node.name}" />
+				</rich:treeNode>
+
+				<rich:treeNode id="monthNode" type="month">
+					<h:outputText value="#{node.name}(#{node.artList.size()})" />
+				</rich:treeNode>
+
+				<rich:treeNode id="articleNode" type="art">
+					<pretty:link mappingId="gonder" style="text-decoration: none;">
+						<f:param value="#{node.articleId}" />
+						<f:param value="#{node.name}" />
+						#{node.name}
+					</pretty:link>
+				</rich:treeNode>
+
+			</rich:tree>
+		</h:form>
+	</ui:define>
+	
+	<ui:define name="category">
+		<h:form id="categories" prependId="false">
+			<rich:tree id="cat_tree" toggleType="client"
+				value="#{makaleBean.rootNodes}" var="node" nodeType="#{node.type}"
+				selectionType="ajax">
+
+				<rich:treeNode id="catNode" type="category">
+					<h:outputText value="#{node.articlecategory}" />
+				</rich:treeNode>
+
+				<rich:treeNode id="scNode" type="subcategory">
+					<h:outputText value="#{node.subCategoryName}" />
+				</rich:treeNode>
+
+				<rich:treeNode id="artNode" type="article">
+					<pretty:link mappingId="gonder" style="text-decoration: none;">
+						<f:param value="#{node.articleid}" />
+						<f:param value="#{node.articleTag}" />
+						#{node.articleTag}
+					</pretty:link>
+				</rich:treeNode>
+
+			</rich:tree>
+		</h:form>
+	</ui:define>
+     
+    <ui:define name="mostread">
+		<h:form id="most_reads" prependId="false">
+			<ul>
+				<a4j:repeat var="article" value="#{makaleBean.popularArticles}">
+					<li>
+						<pretty:link id="pl" mappingId="gonder">
+							<f:param value="#{article.articleid}" />
+							<f:param value="#{article.articleTag}" />
+							#{article.articleTag}(#{article.popularity})
+						</pretty:link>
+					</li>
+				</a4j:repeat>
+			</ul>
+		</h:form>
+	</ui:define>
+    
+    <ui:define name="lastinsert">
+		<h:form id="last_inserts" prependId="false">
+			<ul>
+				<a4j:repeat var="article" value="#{makaleBean.latestArticles}">
+					<li>
+						<pretty:link id="ple" mappingId="gonder">
+							<f:param value="#{article.articleid}" />
+							<f:param value="#{article.articleTag}" />
+							#{article.articleTag}
+						</pretty:link>
+					</li>
+				</a4j:repeat>
+			</ul>
+		</h:form>
+	</ui:define>
+                
+	<ui:define name="content">
+
+		<h2>"<b>#{makaleBean.selectedTag}</b>" ile etiketlenen yazilar;</h2>
+		
+		<br/><br/>
+		
+		<a4j:repeat var="article" value="#{makaleBean.articlesByTag}">
+			<div class="home-post">					
+					
+					<h2>#{article.articleTag}</h2>		
+								
+					<ul class="postinfo" style="margin-bottom: 14px; ">
+						<li><h:outputText value="#{article.insertdate}"><f:convertDateTime dateStyle="medium" timeZone="Europe/Istanbul" type="date" /></h:outputText></li>
+						<li><a href="/faces/article/#{article.articleid}/#{article.articleTag}#comments2" style="text-decoration: none;"><span class="count">#{fn:length(article.comments)}</span> Yorum</a></li>
+						<li><span class="count">#{article.popularity}</span> kez görüntülendi</li>								
+					</ul>
+				
+					<div class="excerpt">
+						#{article.preview}							 
+						<pretty:link mappingId="gonder" >
+							<f:param value="#{article.articleid}"/>
+							<f:param value="#{article.articleTag}"/>
+							<b>(Devamını Oku...)</b>
+						</pretty:link>
+					</div>
+					
+					<span class="related-section">Etiketler -
+						<a4j:repeat var="tag" value="#{article.articleTags}">
+							#{tag.tagName},
+						</a4j:repeat>
+					</span>
+							
+					<div class="sp"></div>
+				
+				</div>
+		</a4j:repeat>
+			
+	</ui:define>
+</ui:composition>

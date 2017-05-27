@@ -1,0 +1,296 @@
+
+.qrcode {
+	display:block;
+	float:right;
+	}
+
+	
+.postHeader {
+	margin-bottom: 20px;
+}
+.postTitle {
+    color: #000000;
+    font-family: Verdana,Geneva,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.postHeader .postTitle {
+    background: url("../img/heading.png") no-repeat scroll 0 16px transparent;
+    margin-right: 15px;
+    padding-left: 15px;
+}
+.postHeader .postTitle a, .postHeader .postTitle a:visited {
+    color: #000000;
+}
+.postHeader .postTitle span {
+    background: url("../img/heading.png") no-repeat scroll right 0 transparent;
+    display: block;
+    margin-right: -15px;
+    padding: 6px 15px 5px;
+}
+.postHeader a:hover {
+    text-decoration: none;
+}
+.postHeader .bottom {
+    background: url("../img/heading.png") no-repeat scroll 0 -60px transparent;
+    margin-right: 15px;
+    padding-left: 15px;
+}
+.postHeader .bottom div {
+    background: url("../img/heading.png") no-repeat scroll right -60px transparent;
+    height: 22px;
+    margin-right: -15px;
+    padding: 0 15px;
+    position: relative;
+}
+.postDate {
+    background: url("../img/heading.png") no-repeat scroll 0 -86px transparent;
+    color: #555555;
+    display: block;
+    float: left;
+    font-size: 11px;
+    line-height: 22px;
+    padding-left: 20px;
+}
+.postAuthor {
+    background: url("../img/heading.png") no-repeat scroll -200px -86px transparent;
+    color: #555555;
+    display: block;
+    float: left;
+    font-size: 11px;
+    line-height: 22px;
+    margin-left: 15px;
+    padding-left: 15px;
+}
+.postAuthor a {
+    color: #555555;
+}
+.postHeaderCompact {
+    background: url("../img/heading.png") no-repeat scroll 0 -120px transparent;
+    margin: 0 15px 40px 0;
+    padding-left: 15px;
+}
+.postHeaderCompact .inner {
+    background: url("../img/heading.png") no-repeat scroll right -120px transparent;
+    display: block;
+    margin-right: -15px;
+    padding: 0 15px;
+    position: relative;
+}
+.postHeaderCompact .postTitle {
+    margin-bottom: -30px;
+    position: relative;
+    top: 8px;
+    z-index: 1;
+}
+.postHeaderCompact .bottom {
+    background: url("../img/heading.png") no-repeat scroll 0 -152px transparent;
+    bottom: -26px;
+    height: 26px;
+    margin: 0 15px 0 -30px;
+    padding-left: 15px;
+    position: relative;
+}
+.postHeaderCompact .bottom span {
+    background: url("../img/heading.png") no-repeat scroll right -152px transparent;
+    display: block;
+    height: 26px;
+    margin-right: -30px;
+    padding: 0 15px;
+    position: relative;
+}
+.postCommentLabel {
+    background: url("../img/icons.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 16px;
+    position: absolute;
+    right: 20px;
+    top: 3px;
+}
+.postCommentLabel span {
+    background: url("../img/icons.png") no-repeat scroll 100% -20px transparent;
+    color: #555555;
+    display: block;
+    font-size: 11px;
+    height: 16px;
+    line-height: 16px;
+    margin-left: 21px;
+    padding: 0 15px 0 8px;
+}
+a.postCommentLabel span {
+    color: #5C7A99;
+}
+a.postCommentLabel:hover span {
+    background-position: 100% -40px;
+}
+a.postCommentLabel:hover {
+    text-decoration: none;
+}
+
+
+
+
+.commentBody .contentBox {
+    display: none;
+}
+.commentBody .active {
+    display: block;
+}
+.commentBody strong {
+    font-weight: bold;
+}
+.commentBody em {
+    font-style: italic;
+}
+a.btnTrackback, a.btnTrackback:hover {
+    background-position: 0 -490px;
+    margin-top: 5px;
+}
+a.btnReply, a.btnReply:hover {
+    background-position: 0 -470px;
+    margin-top: 5px;
+}
+li.comment, li.pingback {
+    list-style: none outside none !important;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+li.comment li, li.pingback li {
+    margin: 20px 0 0;
+}
+.comment .avatar, .pingback .avatar {
+    background-color: #D9D9D9;
+    border: 1px solid #A6A6A6;
+    float: left;
+    margin-top: 8px;
+    padding: 1px;
+}
+.comment .message, .pingback .message {
+    margin-left: 50px;
+}
+.comment .message .t, .pingback .message .t {
+    background: url("../img/comment.png") no-repeat scroll 0 0 transparent;
+    height: 40px;
+    margin-right: 10px;
+}
+.comment .message .t div, .pingback .message .t div {
+    background: url("../img/comment.png") no-repeat scroll -990px 0 transparent;
+    float: right;
+    height: 40px;
+    margin-right: -10px;
+    width: 10px;
+}
+.comment .message .i, .pingback .message .i {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #F2F2F2;
+    border-color: #BFBFBF;
+    border-style: solid;
+    border-width: 0 1px;
+    margin: 0 0 0 17px;
+    padding: 1px 0;
+}
+.comment .message .i .i2, .pingback .message .i .i2 {
+    margin: -37px 15px 0;
+    padding-top: 14px;
+    position: relative;
+}
+.comment .message .i span, .pingback .message .i span {
+    font-size: 11px;
+}
+.comment .message .i .title, .pingback .message .i .title {
+    display: block;
+    left: 5px;
+    position: absolute;
+    top: 0;
+}
+.comment .message .i .links, .pingback .message .i .links {
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 0;
+}
+.comment .message .b, .pingback .message .b {
+    background: url("../img/comment.png") no-repeat scroll 0 -40px transparent;
+    height: 11px;
+    margin-right: 10px;
+}
+.comment .message .b div, .pingback .message .b div {
+    background: url("../img/comment.png") no-repeat scroll -990px -40px transparent;
+    float: right;
+    height: 11px;
+    margin-right: -10px;
+    width: 10px;
+}
+.comment .message p, .comment .message ul, .pingback .message p, .pingback .message ul {
+    font-size: 12px;
+    line-height: 150%;
+    margin-top: 10px;
+}
+.commentList ul.children {
+    clear: both;
+    margin: 0 0 0 20px;
+}
+.commentList ul.children li {
+    list-style: none outside none !important;
+    margin: 2px 0 0;
+}
+.commentListAlt .thread-odd .avatar, .commentListRight li .avatar {
+    float: right;
+}
+.commentListAlt .thread-odd .message, .commentListRight li .message {
+    margin: 0 50px 0 0;
+}
+.commentListAlt .thread-odd .message .t, .commentListRight li .message .t {
+    background-position: right -60px;
+    margin: 0 0 0 10px;
+}
+.commentListAlt .thread-odd .message .t div, .commentListRight li .message .t div {
+    background-position: 0 -60px;
+    float: left;
+    margin: 0 0 0 -10px;
+}
+.commentListAlt .thread-odd .message .i, .commentListRight li .message .i {
+    margin: 0 17px 0 0;
+}
+.commentListAlt .thread-odd .message .b, .commentListRight li .message .b {
+    background-position: right -100px;
+    margin: 0 0 0 10px;
+}
+.commentListAlt .thread-odd .message .b div, .commentListRight li .message .b div {
+    background-position: 0 -100px;
+    float: left;
+    margin: 0 0 0 -10px;
+}
+.commentListAlt .thread-odd ul.children, .commentListRight li ul.children {
+    margin: 0 20px 0 0;
+}
+.commentList .bypostauthor {
+}
+.postLinkPages {
+    font-size: 11px;
+    margin: 0 20px 10px;
+}
+.commentReply {
+    padding-top: 20px;
+}
+.replyHeader {
+    background: url("../img/icons.png") repeat-x scroll 0 -372px transparent;
+    height: 30px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.replyHeader h4 {
+    float: left;
+    font-family: Verdana,Geneva,sans-serif;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 0 20px 0 15px;
+}
+.cancelReply {
+    display: inline;
+}

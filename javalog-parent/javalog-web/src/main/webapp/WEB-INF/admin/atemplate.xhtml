@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+<h:head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="googlebot" content="noindex, nofollow" />
+
+<title><ui:insert name="title"/></title>
+
+<link rel="stylesheet" href="#{request.contextPath}/adminci/css/style.default.css" type="text/css" />
+
+<ui:insert name="scripts"/>
+
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/excanvas.min.js"></script><![endif]-->
+<!--[if IE 9]>
+    <link rel="stylesheet" media="screen" href="#{request.contextPath}/adminci/css/style.ie9.css"/>
+<![endif]-->
+<!--[if IE 8]>
+    <link rel="stylesheet" media="screen" href="#{request.contextPath}/adminci/css/style.ie8.css"/>
+<![endif]-->
+<!--[if lt IE 9]>
+	<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+</h:head>
+
+<h:body class="withvernav">
+
+<div class="bodywrapper">
+    <div class="topheader">
+        <div class="left">
+            <h1 class="logo">Javalog.<span>Net</span></h1>
+            <span class="slogan">Administrator</span>
+            
+            <div class="search">
+            	<form action="" method="post">
+                	<input type="text" name="keyword" id="keyword" value="Enter keyword(s)" />
+                    <button class="submitbutton"></button>
+                </form>
+            </div><!--search-->
+            
+            <br clear="all" />
+            
+        </div><!--left-->
+        
+        <div class="right">
+        	<div class="notification">
+                <a class="count" href="ajax/notifications/"><span>9</span></a>
+        	</div>
+            <div class="userinfo">
+            	<img src="#{request.contextPath}/adminci/images/thumbs/avatar.png" alt="" />
+                <span>javalog</span>
+            </div><!--userinfo-->
+            
+            <div class="userinfodrop">
+            	<div class="avatar">
+                	<a href=""><img src="#{request.contextPath}/adminci/images/thumbs/avatarbig.png" alt="" /></a>
+                    <div class="changetheme">
+                    	Temayı Değiştir: <br />
+                    	<a class="default"></a>
+                        <a class="blueline"></a>
+                        <a class="greenline"></a>
+                        <a class="contrast"></a>
+                        <a class="custombg"></a>
+                    </div>
+                </div><!--avatar-->
+                <div class="userdata">
+                	<h4>Ali Ekber Çelik</h4>
+                    <span class="email">admin@javalog.com</span>
+                    <ul>
+                    	<li><a href="#{request.contextPath}/faces/zekber/javalog/administration/editprofile/">Edit Profile</a></li>
+                        <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/accountsettings/">Account Settings</a></li>
+                        <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/help/">Yardım</a></li>
+                        <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/home/">Çıkış</a></li>
+                    </ul>
+                </div><!--userdata-->
+            </div><!--userinfodrop-->
+        </div><!--right-->
+    </div><!--topheader-->
+    
+    
+    <div class="header">
+    	<ul class="headermenu">
+        	<li class="current"><a href="#{request.contextPath}/faces/zekber/javalog/administration/dashboard/"><span class="icon icon-flatscreen"></span>Dashboard</a></li>
+            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/"><span class="icon icon-pencil"></span>Blog Yönetimi</a></li>
+            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/messages/"><span class="icon icon-message"></span>Mesajlar</a></li>
+            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/reports/"><span class="icon icon-chart"></span>Raporlar</a></li>
+        </ul>
+        
+        <div class="headerwidget">
+        	<div class="earnings">
+            	<div class="one_half">
+                	<h4>Today's Earnings</h4>
+                    <h2>$640.01</h2>
+                </div><!--one_half-->
+                <div class="one_half last alignright">
+                	<h4>Current Rate</h4>
+                    <h2>53%</h2>
+                </div><!--one_half last-->
+            </div><!--earnings-->
+        </div><!--headerwidget-->
+        
+        
+    </div><!--header-->
+    
+	<ui:insert name="leftmenu"></ui:insert>
+        
+    <div class="centercontent">
+        <ui:insert name="content"></ui:insert>
+	</div><!-- centercontent -->
+    
+    
+</div><!--bodywrapper-->
+
+</h:body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+<h:head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    
+	<h:outputStylesheet library="css" name="style.css" target="head"/>
+	<h:outputStylesheet library="css" name="main.css" target="head"/>
+	<h:outputStylesheet library="css" name="comment.css" target="head"/>
+	<h:outputStylesheet library="css" name="rating.css" target="head"/>
+	<h:outputStylesheet library="css" name="qrcode.css" target="head"/>
+	<h:outputStylesheet library="css" name="general.css" target="head"/>
+	<h:outputStylesheet library="css" name="demo.css" target="head"/>
+	<h:outputStylesheet library="css" name="jqtransform.css" target="head"/>
+	<h:outputStylesheet library="css" name="jquery.validationEngine.js" target="head"/>
+  	<h:outputStylesheet library="css" name="shCore.css" target="head"/>
+  	<h:outputStylesheet library="css" name="shThemeDefault.css" target="head"/>
+
+	<f:loadBundle basename="example.i18n" var="i18n" />
+	
+
+  	<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>       	
+	<link rel="icon" type="image/gif" href="#{request.contextPath}/img/favicon.ico"/>
+      
+	<title><ui:insert name="title"/></title>
+	
+</h:head>
+
+<h:body>
+
+	<div class="content">
+			<div class="preheader"></div>
+		
+			<div class="header" >
+				<div class="title">javalog.net</div>
+				<div class="slogan">Bir Javalog'un Günlüğü</div>
+			</div>
+					
+			<div id="nav">
+				<ul>
+					<li><a href="#{request.contextPath}/faces/home/">Anasayfa</a></li>
+					<li><a href="#">Makaleler</a></li>
+					<li><a href="#">Java</a></li>
+					<li><a href="#">Ordan Burdan</a></li>
+					<li><a href="#{request.contextPath}/faces/about/">Hakkında</a></li>
+					<li>
+						<h:form rendered="#{request.isUserInRole('admin')}">
+							<h:commandLink action="#{makaleBean.logout()}" value="Logout" />
+						</h:form>
+					</li>
+				</ul>
+				<!-- Search form -->                  
+				<div class="searchform" style="float: right;margin-right:70px">
+					<h:form id="searchOps">
+						<h:inputText id="searchKey" name="field" class="field" value="#{makaleBean.searchText}"/>
+						<h:commandButton name="button" class="button" value="Ara" onclick="if(document.getElementById('searchOps:searchKey').value == ''){return false;}" action="search?faces-redirect=true"/>
+					</h:form>
+				</div>
+			</div>
+		
+			<div class="main_content">
+				<div class="sd_right">
+					<div class="text_padding">
+						
+						<div class="arrowlistmenu">
+							<h2 class="menuheader">Son Eklenenler</h2>
+								<h:form id="last_inserts" prependId="false">
+									<ul> 
+										<a4j:repeat var="article" value="#{makaleBean.latestArticles}">
+											<li>
+												<pretty:link id="ple" mappingId="gonder">
+													<f:param value="#{article.articleid}"/>
+													<f:param value="#{article.articleTag}"/>
+													#{article.articleTag}
+												</pretty:link>
+											</li>	
+										</a4j:repeat>
+									</ul>
+								</h:form>
+						</div>
+						
+						<br />
+						
+						<div class="arrowlistmenu">
+							<h2 class="menuheader">En Çok Okunanlar</h2>
+								<h:form id="most_reads"  prependId="false">
+									<ul> 
+										<a4j:repeat var="article" value="#{makaleBean.popularArticles}">
+											<li>
+												<pretty:link id="pl" mappingId="gonder">
+													<f:param value="#{article.articleid}"/>
+													<f:param value="#{article.articleTag}"/>
+													#{article.articleTag}(#{article.popularity})
+												</pretty:link>
+											</li>	
+										</a4j:repeat>
+									</ul>
+								</h:form>
+							 </div>
+							 
+							 <br />
+							 
+						 <div class="arrowlistmenu">
+							<h3 class="menuheader">Kategoriler</h3>
+								<h:form id="categories"  prependId="false">
+									<rich:tree id="cat_tree" toggleType="client" value="#{makaleBean.rootNodes}" var="node" nodeType="#{node.type}" selectionType="ajax">
+					
+										<rich:treeNode id="catNode" type="category">
+											<h:outputText value="#{node.articlecategory}" />
+										</rich:treeNode>
+										
+										<rich:treeNode id="scNode" type="subcategory">
+											<h:outputText value="#{node.subCategoryName}" />
+										</rich:treeNode>
+					
+										<rich:treeNode id="artNode" type="article" >
+											<pretty:link mappingId="gonder" style="text-decoration: none;">
+												<f:param value="#{node.articleid}"/>
+												<f:param value="#{node.articleTag}"/>
+												#{node.articleTag}
+											</pretty:link>
+										</rich:treeNode>
+										
+									</rich:tree>	         						            
+							    </h:form>
+							</div>
+							
+							<br />
+  								
+						 <div class="arrowlistmenu">
+								<h2 class="menuheader">Arşiv</h2>
+									<h:form id="arsiv"  prependId="false">    
+										<rich:tree id="arsiv_tree" toggleType="client" value="#{makaleBean.archiveNodes}" var="node" nodeType="#{node.type}"
+											selectionChangeListener="#{makaleBean.processAdvancedTreeNodeSelectedArchive}" selectionType="ajax">
+						
+											<rich:treeNode id="yearNode" type="year">
+												<h:outputText value="#{node.name}" />
+											</rich:treeNode>
+											
+											<rich:treeNode id="monthNode" type="month">
+												<h:outputText value="#{node.name}(#{node.artList.size()})" />
+											</rich:treeNode>
+						
+											<rich:treeNode id="articleNode" type="art">
+												<pretty:link mappingId="gonder" style="text-decoration: none;">
+													<f:param value="#{node.articleId}"/>
+													<f:param value="#{node.name}"/>
+													#{node.name}
+												</pretty:link>
+											</rich:treeNode>
+											
+										</rich:tree>	         						            
+							    	</h:form>
+							 </div>
+							 
+						<br />
+						 
+						<div class="arrowlistmenu">
+							<h2 class="menuheader">Etiketler</h2>
+							<a4j:repeat var="tagdto" value="#{makaleBean.tagCloud}">
+								<pretty:link mappingId="tag" styleClass="tagdto" style="font-size: #{tagdto.tagFrequency}px;">
+									<f:param value="#{tagdto.tagName}"/>
+									#{tagdto.tagName}
+								</pretty:link>
+							</a4j:repeat>	
+						</div>
+							 
+					</div>
+				</div>
+			
+				<div class="sd_left">
+					<div class="text_padding">	
+						<ui:insert name="content"></ui:insert> 							
+					</div>
+				</div>
+	
+				<div class="footer">
+					<div class="padding"> 						
+						Copyright 2013
+	                    <a href="http://www.javalog.net"><strong>javalog.net</strong></a>
+	                    &nbsp;Bir Javalog'un Günlüğü
+					</div>
+				</div>
+			</div>
+	</div>
+  	
+  	<script type="text/javascript">
+	  	SyntaxHighlighter.all();
+  	</script>
+  	
+  	<script type="text/javascript">
+  		var eko =jQuery.noConflict(); 
+  	</script>
+  	
+	<script language="javascript" type="text/javascript">
+		function showLoader(data) {
+			  showLoaderRegion(data, "dateIndicator");
+		}
+
+		function showLoaderRegion(data, regionId) {
+			  if (data.status == "begin") {
+				  document.getElementById(regionId).style.display = "inline";
+			  } else if (data.status == "success") {
+				  document.getElementById(regionId).style.display = "none";
+			  }
+			}
+	</script>    	
+  	
+	<h:outputScript library="js" name="jquery.js" target="head"/>
+	<h:outputScript library="js" name="jquery-1.3.2.min.js" target="head"/>
+	<h:outputScript library="js" name="jquery.validationEngine.js" target="head"/>
+	<h:outputScript library="js" name="jquery.jqtransform.js" target="head"/>
+	<h:outputScript library="js" name="script.js" target="head"/>
+	<h:outputScript library="js" name="behavior.js" target="head"/>
+	<h:outputScript library="js" name="rating.js" target="head"/>
+	<h:outputScript library="js" name="shCore.js" target="head"/>
+  	<h:outputScript library="js" name="shBrushJava.js" target="head"/>
+  	<h:outputScript library="js" name="shBrushJScript.js" target="head"/>
+  	<h:outputScript library="js" name="shBrushSql.js" target="head"/>
+  	<h:outputScript library="js" name="shBrushXml.js" target="head"/>
+</h:body>
+</html>

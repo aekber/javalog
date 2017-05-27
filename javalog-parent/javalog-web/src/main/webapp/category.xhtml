@@ -1,0 +1,166 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+      			xmlns:rich="http://richfaces.org/rich"
+      			xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      			xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                template="template.xhtml">
+
+	<ui:define name="title">#{article.subcategory.subCategoryName} Kategorisindeki Makaleler</ui:define>
+	
+	<ui:define name="tags">
+    	<a4j:repeat var="tagdto" value="#{makaleBean.tagCloud}">
+			<pretty:link mappingId="tag" styleClass="tagdto" style="font-size: #{tagdto.tagFrequency}px;">
+				<f:param value="#{tagdto.tagName}"/>
+				#{tagdto.tagName}
+			</pretty:link>
+		</a4j:repeat>
+    </ui:define>
+    
+    <ui:define name="archive">
+		<h:form id="arsiv" prependId="false">
+			<rich:tree id="arsiv_tree" toggleType="client"
+				value="#{makaleBean.archiveNodes}" var="node"
+				nodeType="#{node.type}"
+				selectionChangeListener="#{makaleBean.processAdvancedTreeNodeSelectedArchive}"
+				selectionType="ajax">
+
+				<rich:treeNode id="yearNode" type="year">
+					<h:outputText value="#{node.name}" />
+				</rich:treeNode>
+
+				<rich:treeNode id="monthNode" type="month">
+					<h:outputText value="#{node.name}(#{node.artList.size()})" />
+				</rich:treeNode>
+
+				<rich:treeNode id="articleNode" type="art">
+					<pretty:link mappingId="gonder" style="text-decoration: none;">
+						<f:param value="#{node.articleId}" />
+						<f:param value="#{node.name}" />
+						#{node.name}
+					</pretty:link>
+				</rich:treeNode>
+
+			</rich:tree>
+		</h:form>
+	</ui:define>
+	
+	<ui:define name="category">
+		<h:form id="categories" prependId="false">
+			<rich:tree id="cat_tree" toggleType="client"
+				value="#{makaleBean.rootNodes}" var="node" nodeType="#{node.type}"
+				selectionType="ajax">
+
+				<rich:treeNode id="catNode" type="category">
+					<h:outputText value="#{node.articlecategory}" />
+				</rich:treeNode>
+
+				<rich:treeNode id="scNode" type="subcategory">
+					<h:outputText value="#{node.subCategoryName}" />
+				</rich:treeNode>
+
+				<rich:treeNode id="artNode" type="article">
+					<pretty:link mappingId="gonder" style="text-decoration: none;">
+						<f:param value="#{node.articleid}" />
+						<f:param value="#{node.articleTag}" />
+						#{node.articleTag}
+					</pretty:link>
+				</rich:treeNode>
+
+			</rich:tree>
+		</h:form>
+	</ui:define>
+     
+    <ui:define name="mostread">
+		<h:form id="most_reads" prependId="false">
+			<ul>
+				<a4j:repeat var="article" value="#{makaleBean.popularArticles}">
+					<li>
+						<pretty:link id="pl" mappingId="gonder">
+							<f:param value="#{article.articleid}" />
+							<f:param value="#{article.articleTag}" />
+							#{article.articleTag}(#{article.popularity})
+						</pretty:link>
+					</li>
+				</a4j:repeat>
+			</ul>
+		</h:form>
+	</ui:define>
+    
+    <ui:define name="lastinsert">
+		<h:form id="last_inserts" prependId="false">
+			<ul>
+				<a4j:repeat var="article" value="#{makaleBean.latestArticles}">
+					<li>
+						<pretty:link id="ple" mappingId="gonder">
+							<f:param value="#{article.articleid}" />
+							<f:param value="#{article.articleTag}" />
+							#{article.articleTag}
+						</pretty:link>
+					</li>
+				</a4j:repeat>
+			</ul>
+		</h:form>
+	</ui:define>
+	
+    <ui:define name="content">
+
+
+	<h:form>
+
+		<a4j:repeat var="article" value="#{makaleBean.selectedSubCat.articles}">	
+		
+			<div class="home-post">
+				<div class="share-box">#{article.popularity}
+					<span>
+						<a href="#" style="text-decoration: none;">Görüntüleme</a>
+					</span>
+				</div>
+				
+				<div class="post-category">
+					<a href="#" class="prettyl2">
+						#{article.subcategory.subCategoryName}
+					</a>
+				</div>
+				
+				
+				<pretty:link mappingId="gonder" styleClass="prettyl">
+					<f:param name="articleId" value="#{article.articleid}"/>
+					<f:param name="articleTag" value="#{article.articleTag}"/>
+					#{article.articleTag}
+				</pretty:link>
+				
+				
+				<ul class="postinfo" style="margin-bottom: 14px;">
+					<li>Gonderen <a title="Ali Ekber Celik" style="text-decoration: none;" href="mailto:admin@javalog.net">javalog</a>,  <h:outputText value="#{article.insertdate}"><f:convertDateTime dateStyle="long" timeZone="Europe/Istanbul" type="date" /></h:outputText></li>
+					<li><span class="count">#{fn:length(article.comments)}</span> Yorum</li>								
+				</ul>
+
+				<div class="image-left">
+					<img src="http://woorkup.com/wp-content/uploads/2010/12/ie6.jpg"/>
+				</div>
+			
+				<div class="excerpt">
+					<strong>Many web developers (more than I could believe) are still spending a lot of time to optimize their works for Internet Explorer 6.</strong>
+							Internet Explorer 6 was a terrible browser. Its popularity and its not respect of standards was for long time the nightmare of every web developers: now that it’s almost dead, it’s an useless fury to prolong their suffering.
+				</div>
+								
+				<span class="related-section">Related Posts -
+					<a href="#">The Death of Tag Clouds</a> 
+				</span>
+						
+				<div class="sp"></div>
+			
+			</div>
+			
+		</a4j:repeat>			    
+			    				
+		</h:form>
+
+        
+
+    </ui:define>
+
+</ui:composition>

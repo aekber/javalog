@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:eko="http://www.javalog.net/jsf/util"
+	  xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<ui:composition template="../WEB-INF/admin/atemplate.xhtml">
+
+		<ui:define name="title">Supporto | Amanda Admin Template</ui:define>
+	    
+	    <ui:define name="scripts">
+	    
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-1.7.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.cookie.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/general.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/support.js"></script>
+	    
+	    </ui:define>
+	    
+		<ui:define name="leftmenu">
+	    
+	    	<ui:include src="../WEB-INF/admin/leftmenu.xhtml"></ui:include>
+	    
+	    </ui:define>
+	    
+	    <ui:define name="content">
+	
+			<div class="pageheader notab">
+	            <h1 class="pagetitle">Customer Support</h1>
+	            <span class="pagedesc">This is a sample description of a page</span>
+	        </div><!--pageheader-->
+	        
+	        <div id="contentwrapper" class="contentwrapper withrightpanel">
+	        
+	        	<div class="subcontent chatcontent">
+	                   
+	                   <div id="chatmessage" class="chatmessage radius2">
+	                   		<div id="chatmessageinner"></div><!--chatmessageinner-->
+	                   </div><!--chatmessage-->
+	                   	
+	                   <div class="messagebox radius2">
+	                   		<button>Send</button>
+	                   		<span class="inputbox">
+	                   			<input type="text" id="msgbox" name="msgbox"  />
+	                        </span>
+	                        
+	                   </div>
+	                   
+	            </div><!--subcontent-->
+	        
+	        </div><!--contentwrapper-->
+	        
+	        
+	        <div class="rightpanel">
+	        	<div class="rightpanelinner">
+	                <div class="widgetbox uncollapsible">
+	                	<div class="title"><h4>Online Users</h4></div>
+	                    <div class="widgetcontent nopadding">
+	                    	<div class="chatsearch">
+	                        	<input type="text" name="" value="Search" />
+	                        </div>
+	                    	<ul class="contactlist">
+	                        	<li class="online new"><a href=""><img src="#{request.contextPath}/adminci/images/thumbs/avatar5.png" alt="" /> <span>Hiccup Haddock III</span></a><span class="msgcount">3</span></li>
+	                            <li><a href=""><img src="#{request.contextPath}/adminci/images/thumbs/avatar6.png" alt="" /> <span>Astrid Hofferson</span></a></li>
+	                            <li class="online"><a href=""><img src="#{request.contextPath}/adminci/images/thumbs/avatar7.png" alt="" /> <span>Vector</span></a></li>
+	                            <li class="online"><a href=""><img src="#{request.contextPath}/adminci/images/thumbs/avatar8.png" alt="" /> <span>Puss in Boots</span></a></li>
+	                            <li class="online new"><a href=""><img src="#{request.contextPath}/adminci/images/thumbs/avatar9.png" alt="" /> <span>Humpty Dumpty</span></a><span class="msgcount">1</span></li>
+	                            <li><a href=""><img src="#{request.contextPath}/adminci/images/thumbs/avatar10.png" alt="" /> <span>Shrek</span></a></li>
+	                            <li><a href=""><img src="#{request.contextPath}/adminci/images/thumbs/avatar11.png" alt="" /> <span>Princess Fiona</span></a></li>
+	                        </ul>
+	                    </div><!--widgetcontent-->
+	                </div><!--widgetbox-->
+	            </div><!--rightpanelinner-->
+	        </div><!--rightpanel-->
+			
+		</ui:define>
+	    
+	</ui:composition>
+	
+</html>

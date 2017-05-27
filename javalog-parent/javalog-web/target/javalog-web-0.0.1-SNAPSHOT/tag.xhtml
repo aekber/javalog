@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                xmlns:eko="http://www.javalog.net/jsf/util"
+                template="template.xhtml">
+                
+    <ui:define name="title">Etiketler</ui:define>
+                
+	<ui:define name="content">
+
+		<h2>"<b>#{makaleBean.selectedTag}</b>" ile etiketlenen yazilar;</h2>
+		
+		<br/><br/>
+		
+		<a4j:repeat var="article" value="#{makaleBean.articlesByTag}">
+			<div class="home-post">					
+					
+					<h2>#{article.articleTag}</h2>		
+								
+					<ul class="postinfo" style="margin-bottom: 14px; ">
+						<li><h:outputText value="#{article.insertdate}"><f:convertDateTime dateStyle="medium" timeZone="Europe/Istanbul" type="date" /></h:outputText></li>
+						<li><a href="/faces/article/#{article.articleid}/#{article.articleTag}#comments2" style="text-decoration: none;"><span class="count">#{fn:length(article.comments)}</span> Yorum</a></li>
+						<li><span class="count">#{article.popularity}</span> kez görüntülendi</li>								
+					</ul>
+				
+					<div class="excerpt">
+						#{article.preview}							 
+						<pretty:link mappingId="gonder" >
+							<f:param value="#{article.articleid}"/>
+							<f:param value="#{article.articleTag}"/>
+							<b>(Devamını Oku...)</b>
+						</pretty:link>
+					</div>
+					
+					<span class="related-section">Etiketler -
+						<a4j:repeat var="tag" value="#{article.articleTags}">
+							#{tag.tagName},
+						</a4j:repeat>
+					</span>
+							
+					<div class="sp"></div>
+				
+				</div>
+		</a4j:repeat>
+			
+	</ui:define>
+</ui:composition>

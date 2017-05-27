@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13.Eki.2010 10:25:24 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping default-lazy="false">
+	<class name="org.ekber.domain.Comments" table="comments" catalog="jsf">
+		<id name="commentid" type="java.lang.Integer">
+			<column name="commentid" />
+			<generator class="identity" />
+		</id>
+
+		<property name="commenttext" type="string">
+			<column name="commenttext" length="16777215" />
+		</property>
+
+		<property name="sender" type="string">
+			<column name="sender" length="100" />
+		</property>
+
+		<property name="senderIp" type="string">
+			<column name="senderip" length="50" />
+		</property>
+
+		<property name="senderMail" type="string">
+			<column name="sendermail" length="50" />
+		</property>
+
+		<property name="senddate" type="timestamp">
+			<column name="senddate" not-null="true" />
+		</property>
+
+		<many-to-one name="articles" class="org.ekber.domain.Article"
+			not-null="true">
+			<column name="articleid" />
+		</many-to-one>
+
+		<property name="activated" type="boolean">
+			<column name="isactivated" length="1" />
+		</property>
+		
+		<property name="admin" type="boolean">
+			<column name="isadmin" length="1" />
+		</property>
+	</class>
+</hibernate-mapping>

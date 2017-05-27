@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:eko="http://www.javalog.net/jsf/util"
+	  xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<ui:composition template="../WEB-INF/admin/atemplate.xhtml">
+
+		<ui:define name="title">File Managero | Amanda Admin Template</ui:define>
+	    
+	    <ui:define name="scripts">
+	    
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-1.7.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.cookie.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.alerts.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.jgrowl.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.colorbox-min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/general.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/filemanager.js"></script>
+	    
+	    </ui:define>
+	    
+		<ui:define name="leftmenu">
+	    
+	    	<ui:include src="../WEB-INF/admin/leftmenu.xhtml"></ui:include>
+	    
+	    </ui:define>
+	    
+	    <ui:define name="content">
+
+			 <div class="pageheader notab">
+	            <h1 class="pagetitle">File Manager</h1>
+	            <span class="pagedesc">To select an item, just click the thumbnail.</span>
+	         </div><!--pageheader-->
+	        
+	        <div id="contentwrapper" class="contentwrapper nopadding">
+	        
+	        	<div class="filemgr">
+	            	<div class="filemgr_left">
+	                	<div class="filemgr_head">
+	                    	<ul class="filemgr_menu">
+	                        	<li><a class="prev prev_disabled"></a></li>
+	                            <li><a class="next"></a></li>
+	                            <li class="marginleft20"><a class="selectall">Select All</a></li>
+	                            <li class="marginleft5 viewfilebtn"><a class="preview preview_disabled">View File</a></li>
+	                            <li class="marginleft20 newfoldbtn"><a class="newfolder" title="Add New Foldr"></a></li>
+	                            <li class="marginleft5 trashbtn"><a class="trash trash_disabled" title="Trash"></a></li>
+	                            <li class="marginleft20 filesearch">
+	                            	<form>
+	                            		<input type="text" id="filekeyword" class="filekeyword" value="Search file here" />
+	                                </form>
+	                            </li>
+	                            <li class="right newfilebtn"><a href="" class="newfilebutton radius2">Add New File</a></li>
+	                        </ul>
+	                        <span class="clearall"></span>
+	                    </div><!--filemgr_head-->
+	                    
+	                    <div class="filemgr_category">
+	                    	<ul>
+	                        	<li class="current"><a href="">All</a></li>
+	                            <li><a href="">Images</a></li>
+	                            <li><a href="">Video</a></li>
+	                            <li><a href="">Audio</a></li>
+	                            <li><a href="">Documents</a></li>
+	                            <li class="right"><span class="pagenuminfo">Showing 1 - 20 of 69</span></li>
+	                        </ul>
+	                    </div><!--filemgr_category-->
+	                    
+	                    <div class="filemgr_content">
+							
+	                        <small>
+	                        	<strong>
+	                            	<em>Tips: Hold Control key to select multiple items. To view file, select one item and click View File button.</em>
+	                            </strong>
+	                        </small>
+	                        
+	                        <br /><br />
+	                    	
+	                        <ul class="listfile">
+	                        	<li>
+	                            	<a class="image" href="images/preview/image1.png">
+	                                	<span class="img"><img src="images/thumbs/image1.png" alt="" /></span>
+	                                    <span class="filename">Image1.jpg</span></a>
+	                            </li>
+	                        	<li>
+	                            	<a class="image" href="images/preview/image2.png">
+	                                	<span class="img"><img src="images/thumbs/image2.png" alt="" /></span>
+	                                    <span class="filename">Image2.jpg</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="doc" href="assets/tutorial1.pdf">
+	                                	<span class="doc"><img src="images/thumbs/doc.png" alt="" /></span>
+	                                    <span class="filename">Tutorial1.pdf</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="video" href="assets/movie1.avi">
+	                                	<span class="doc"><img src="images/thumbs/video.png" alt="" /></span>
+	                                    <span class="filename">Movie1.avi</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="audio" href="assets/audio1.mp3">
+	                                	<span class="doc"><img src="images/thumbs/audio.png" alt="" /></span>
+	                                    <span class="filename">Song1.mp3</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="doc" href="assets/tutorial1.pdf">
+	                                	<span class="doc"><img src="images/thumbs/doc.png" alt="" /></span>
+	                                    <span class="filename">Tutorial1.pdf</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="doc" href="assets/tutorial1.pdf">
+	                                	<span class="doc"><img src="images/thumbs/doc.png" alt="" /></span>
+	                                    <span class="filename">Tutorial1.pdf</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="image" href="images/preview/image3.png">
+	                                	<span class="img"><img src="images/thumbs/image3.png" alt="" /></span>
+	                                    <span class="filename">Image3.jpg</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="audio" href="assets/audio1.mp3">
+	                                	<span class="doc"><img src="images/thumbs/audio.png" alt="" /></span>
+	                                    <span class="filename">Song1.mp3</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="doc" href="assets/tutorial1.pdf">
+	                                	<span class="doc"><img src="images/thumbs/doc.png" alt="" /></span>
+	                                    <span class="filename">Tutorial1.pdf</span></a>
+	                            </li>
+	                        	<li>
+	                            	<a class="image" href="images/preview/image5.png">
+	                                	<span class="img"><img src="images/thumbs/image5.png" alt="" /></span>
+	                                    <span class="filename">Image5.jpg</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="doc" href="assets/tutorial1.pdf">
+	                                	<span class="doc"><img src="images/thumbs/doc.png" alt="" /></span>
+	                                    <span class="filename">Tutorial1.pdf</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="video" href="assets/movie1.avi">
+	                                	<span class="doc"><img src="images/thumbs/video.png" alt="" /></span>
+	                                    <span class="filename">Movie1.avi</span></a>
+	                            </li>
+	                        	<li>
+	                            	<a class="image" href="images/preview/image4.png">
+	                                	<span class="img"><img src="images/thumbs/image4.png" alt="" /></span>
+	                                    <span class="filename">Image4.jpg</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="audio" href="assets/audio1.mp3">
+	                                	<span class="doc"><img src="images/thumbs/audio.png" alt="" /></span>
+	                                    <span class="filename">Song1.mp3</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="doc" href="assets/tutorial1.pdf">
+	                                	<span class="doc"><img src="images/thumbs/doc.png" alt="" /></span>
+	                                    <span class="filename">Tutorial1.pdf</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="doc" href="assets/tutorial1.pdf">
+	                                	<span class="doc"><img src="images/thumbs/doc.png" alt="" /></span>
+	                                    <span class="filename">Tutorial1.pdf</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="image" href="images/preview/image6.png">
+	                                	<span class="img"><img src="images/thumbs/image6.png" alt="" /></span>
+	                                    <span class="filename">Image6.jpg</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="audio" href="assets/audio1.mp3">
+	                                	<span class="doc"><img src="images/thumbs/audio.png" alt="" /></span>
+	                                    <span class="filename">Song1.mp3</span></a>
+	                            </li>
+	                            <li>
+	                            	<a class="doc" href="assets/tutorial1.pdf">
+	                                	<span class="doc"><img src="images/thumbs/doc.png" alt="" /></span>
+	                                    <span class="filename">Tutorial1.pdf</span></a>
+	                            </li>
+	                        </ul>
+	                        
+	                        <br clear="all" />
+	                        
+	                    </div><!--filemgr_content-->
+	                    
+	                </div><!--filemgr_left -->
+	                
+	                <div class="filemgr_right">
+	                	<div class="filemgr_rightinner">
+	                    	<div class="contenttitle2" style="margin-top: 0">
+	                            <h3>Browse Files</h3>
+	                        </div><!--contenttitle-->
+	                        <ul class="menuright">
+	                        	<li class="current"><a href="">All Files</a></li>
+	                            <li><a href="">Deleted Files</a></li>
+	                            <li><a href="">Recently Added</a></li>
+	                            <li><a href="">Recently Viewed</a></li>
+	                            <li><a href="">New Folder</a></li>
+	                            <li><a href="">New Folder(2)</a></li>
+	                        </ul>
+	                    </div><!-- filemgr_rightinner -->
+	                </div><!-- filemgr_right -->
+	                <br clear="all" />
+	            </div><!--filemgr-->
+	        	
+	        </div><!--contentwrapper-->
+	        
+		</ui:define>
+	    
+	</ui:composition>
+	
+</html>

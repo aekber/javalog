@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13.Eki.2010 10:25:24 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping default-lazy="false">
+	<class name="org.ekber.domain.UserRate" table="user_rate"
+		catalog="jsf">
+		<id name="rateId" type="java.lang.Integer">
+			<column name="rateid" />
+			<generator class="identity" />
+		</id>
+
+		<property name="rate" type="java.lang.Integer">
+			<column name="rate" />
+		</property>
+
+		<property name="raterIp" type="string">
+			<column name="raterip" length="64" />
+		</property>
+
+		<property name="ratedDate" type="timestamp">
+			<column name="ratedate" not-null="true" />
+		</property>
+
+		<many-to-one name="articlesrate" class="org.ekber.domain.Article"
+			not-null="true">
+			<column name="ratedarticleid" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

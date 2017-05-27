@@ -1,0 +1,10 @@
+<html>
+<body>
+<h3>Kullanici sayfada dolasirken asagidaki database islem hatasi meydana gelmistir:</h3>
+
+<div>
+   ${hata}
+</div>
+</body>
+
+</html>

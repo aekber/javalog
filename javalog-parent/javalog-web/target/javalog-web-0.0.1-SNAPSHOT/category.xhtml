@@ -1,0 +1,71 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+      			xmlns:rich="http://richfaces.org/rich"
+      			xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      			xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                template="template.xhtml">
+
+	<ui:define name="title">#{article.subcategory.subCategoryName} Kategorisindeki Makaleler</ui:define>
+	
+    <ui:define name="content">
+
+
+	<h:form>
+
+		<a4j:repeat var="article" value="#{makaleBean.selectedSubCat.articles}">	
+		
+			<div class="home-post">
+				<div class="share-box">#{article.popularity}
+					<span>
+						<a href="#" style="text-decoration: none;">Görüntüleme</a>
+					</span>
+				</div>
+				
+				<div class="post-category">
+					<a href="#" class="prettyl2">
+						#{article.subcategory.subCategoryName}
+					</a>
+				</div>
+				
+				
+				<pretty:link mappingId="gonder" styleClass="prettyl">
+					<f:param name="articleId" value="#{article.articleid}"/>
+					<f:param name="articleTag" value="#{article.articleTag}"/>
+					#{article.articleTag}
+				</pretty:link>
+				
+				
+				<ul class="postinfo" style="margin-bottom: 14px;">
+					<li>Gonderen <a title="Ali Ekber Celik" style="text-decoration: none;" href="mailto:admin@javalog.net">javalog</a>,  <h:outputText value="#{article.insertdate}"><f:convertDateTime dateStyle="long" timeZone="Europe/Istanbul" type="date" /></h:outputText></li>
+					<li><span class="count">#{fn:length(article.comments)}</span> Yorum</li>								
+				</ul>
+
+				<div class="image-left">
+					<img src="http://woorkup.com/wp-content/uploads/2010/12/ie6.jpg"/>
+				</div>
+			
+				<div class="excerpt">
+					<strong>Many web developers (more than I could believe) are still spending a lot of time to optimize their works for Internet Explorer 6.</strong>
+							Internet Explorer 6 was a terrible browser. Its popularity and its not respect of standards was for long time the nightmare of every web developers: now that it’s almost dead, it’s an useless fury to prolong their suffering.
+				</div>
+								
+				<span class="related-section">Related Posts -
+					<a href="#">The Death of Tag Clouds</a> 
+				</span>
+						
+				<div class="sp"></div>
+			
+			</div>
+			
+		</a4j:repeat>			    
+			    				
+		</h:form>
+
+        
+
+    </ui:define>
+
+</ui:composition>

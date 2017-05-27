@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13.Eki.2010 10:25:24 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping default-lazy="false">
+	<class catalog="jsf" name="org.ekber.domain.Category" table="category">
+		<id name="catid" type="java.lang.Integer">
+			<column name="catid" />
+			<generator class="identity" />
+		</id>
+
+		<property generated="never" lazy="false" name="articlecategory"
+			type="string">
+			<column length="50" name="articlecategory" />
+		</property>
+
+		<bag name="subCat" table="subcategory">
+			<key column="catid" />
+			<one-to-many class="org.ekber.domain.SubCategory" />
+		</bag>
+
+	</class>
+</hibernate-mapping>

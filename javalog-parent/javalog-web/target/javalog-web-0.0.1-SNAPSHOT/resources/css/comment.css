@@ -1,0 +1,53 @@
+.commentlist li, #commentform input, #commentform textarea {
+	font: 0.9em 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	}
+
+.commentlist li .avatar { 
+	float: right;
+	border: 1px solid #eee;
+	padding: 2px;
+	background: #fff;
+	}
+
+.commentlist cite, .commentlist cite a {
+	font-weight: bold;
+	font-style: normal;
+	font-size: 1.1em;
+	}
+
+.commentlist p {
+	font-weight: normal;
+	line-height: 1.5em;
+	text-transform: none;
+	margin: 10px 5px 10px 0;
+	}
+	
+.commentlist {
+	padding: 0;
+	text-align: justify;
+	}
+
+.commentlist li {
+	margin: 15px 0 3px;
+	padding: 5px 10px 3px;
+	list-style: none;
+	font-weight: bold;
+	}
+
+.alt {
+	background-color: #f8f8f8;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	margin:0;
+	padding:10 px;
+	margin: 0; 
+	padding: 0;
+	background: #FFF url(../img/gradientbg.jpg) repeat-x;
+	border: 1px solid #EFEDED;
+	}
+	
+.commentmetadata {
+	margin: 0;
+	display: block;
+	font-weight:normal;
+	}

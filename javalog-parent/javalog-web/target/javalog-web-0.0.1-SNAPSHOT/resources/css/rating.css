@@ -1,0 +1,57 @@
+/**************RATING*******************/
+
+.post-ratings {
+    opacity: 1;
+    width: auto;
+    margin-left: 15px;
+    padding-right: 15px;
+}
+
+#rating-container {
+    height: 30px;
+    margin-top: 20px;
+    position: relative;
+}
+
+#rating-header {
+    background-color: #F9F9F9;
+    position: absolute;
+    right: 20px;
+    top: -10px;
+}
+
+.post-ratings p {
+    border: 1px solid #E5E5E5;
+    padding: 5px 0 5px 10px;
+}
+
+.post-ratings IMG {
+    vertical-align: top;
+}
+
+.post-ratings IMG, .post-ratings-loading IMG, .post-ratings-image IMG, .post-ratings-image {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+
+#rating-text {
+    font-size: 0.9em;
+    padding: 0 0 0 10px;
+}
+
+strong, b {
+    font-weight: bold;
+}
+
+#loading-container {
+    height: 20px;
+    margin: 0 0 10px;
+    text-align: center;
+}
+
+.post-ratings-loading {
+    text-align: center;
+    display: none;
+    height: 16px;
+}

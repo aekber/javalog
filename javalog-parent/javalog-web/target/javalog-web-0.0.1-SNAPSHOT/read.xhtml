@@ -1,0 +1,214 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:eko="http://www.javalog.net/jsf/util"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces"
+                template="template.xhtml">
+                
+    <ui:define name="title">#{makaleBean.articleTag}</ui:define>
+                
+	<ui:define name="content">
+
+			<div class="post">	
+						
+						<h2>
+							#{makaleBean.selectedArticle.articleTag}							
+					   	</h2>
+					   	<p class="post-article">					
+							<b>Gönderen: </b><a href="#" style="text-decoration: none;">javalog</a>
+							<span style="margin-left: 15px;">
+								<b>Kategori: </b><a href="#" style="text-decoration: none;">#{makaleBean.selectedArticle.subcategory.subCategoryName}</a>
+								(#{makaleBean.selectedArticle.popularity} defa görüntülendi)
+							</span>
+						</p>
+								
+							
+						<div class="image-left">
+							<img src="#{request.contextPath}/img/1.jpg"/>
+						</div>	
+						<p>
+							<h:outputText value="#{makaleBean.selectedArticle.content}" escape="true"/>
+						</p>
+						
+							<br/>
+							
+					<pre class="brush: java;">
+					
+					
+					package org.ekber.servlets;
+					
+					import java.io.IOException;
+					import java.io.PrintWriter;
+					import java.util.Date;
+					import java.util.HashMap;
+					import java.util.Iterator;
+					
+					
+					public class AjaxCommentServlet extends HttpServlet {
+					
+						private static final long serialVersionUID = 1L;
+					
+					
+						protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+							processRequest(request, response);
+						}
+					
+						protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+							processRequest(request, response);
+						}
+					
+					}
+	
+			      	</pre>
+  
+  					<br/>
+					
+					<p>
+						<h:outputText value="#{makaleBean.selectedArticle.content}" escape="true"/>
+					</p>
+					
+					<div class="post-ratings" id="post-ratings-#{makaleBean.selectedArticle.articleid}">
+						<eko:printStars articleId="#{makaleBean.selectedArticle.articleid}"/>
+					</div>
+					<div id="loading-container">
+						<div class="post-ratings-loading" id="post-ratings-#{makaleBean.selectedArticle.articleid}-loading">
+							<img width="16" height="16" class="post-ratings-image" title="Loading ..." alt="Loading ..." src="/javalog-web/img/loading.gif"/>
+						</div>
+					</div>
+								
+					<p class="post-footer align-right">					
+						<span class="comments">Yorumlar <h:outputText id="commentCount2" value="(#{fn:length(makaleBean.selectedArticle.comments)})"/></span>
+						<span class="date">
+							<h:outputText value="#{makaleBean.selectedArticle.insertdate}">
+								<f:convertDateTime dateStyle="full" timeZone="Europe/istanbul" type="date" />
+							</h:outputText>
+						</span>	
+						<span class="articletags">
+							Tag:
+						</span>
+						<a4j:repeat var="tag" value="#{makaleBean.selectedArticle.articleTags}">
+							<pretty:link mappingId="tag" style="text-decoration: none;">
+								<f:param value="#{tag.tagName}"/>
+								#{tag.tagName},
+							</pretty:link>
+						</a4j:repeat>
+					</p>
+
+				</div>				
+				        
+				        <div id="main-container">
+							<div id="form-container">
+						    <h1>Fancy Contact Form</h1>
+						    <h2>Drop us a line and we will get back to you</h2>
+						    <h:form id="contact-form" prependId="false">
+						    <!--  <form id="" name="contact-form" method="post" action="submit.php">-->
+						      <table width="100%" border="0" cellspacing="0" cellpadding="5">
+						        <tr>
+						          <td width="15%"><label for="name">Name</label></td>
+						          <td width="70%"><input type="text" class="validate[required,custom[onlyLetter]]" name="name" id="name" value="" /></td>
+						          <td width="15%" id="errOffset">&nbsp;</td>
+						        </tr>
+						        <tr>
+						          <td><label for="email">Email</label></td>
+						          <td><input type="text" class="validate[required,custom[email]]" name="email" id="email" value="" /></td>
+						          <td>&nbsp;</td>
+						        </tr>
+						        <tr>
+						          <td><label for="subject">Subject</label></td>
+						          <td><select name="subject" id="subject">
+						            <option value="" selected="selected"> - Choose -</option>
+						            <option value="Question">Question</option>
+						            <option value="Business proposal">Business proposal</option>
+						            <option value="Advertisement">Advertising</option>
+						            <option value="Complaint">Complaint</option>
+						          </select>          </td>
+						          <td>&nbsp;</td>
+						        </tr>
+						        <tr>
+						          <td valign="top"><label for="message">Message</label></td>
+						          <td><textarea name="message" id="message" class="validate[required]" cols="35" rows="5"></textarea></td>
+						          <td valign="top">&nbsp;</td>
+						        </tr>
+						        <tr>
+						          <td><label for="captcha">4 + 5 =</label></td>
+						          <td><input type="text" class="validate[required,custom[onlyNumber]]" name="captcha" id="captcha" /></td>
+						          <td valign="top">&nbsp;</td>
+						        </tr>
+						        <tr>
+						          <td valign="top">&nbsp;</td>
+						          <td colspan="2">
+						          	<h:commandButton value="G�nder" id="button" action="#{makaleBean.addComment()}">
+										<f:ajax render=":comments :commentCount :commentCount2" execute="name email message" status="showLoader"/>
+						            </h:commandButton>
+						          <input type="reset" name="button2" id="button2" value="Reset" />
+						          
+						          <!--  <?=$str?>  --></td>
+						        </tr>
+						      </table>
+						      </h:form>
+						      <!--<?=$success?>-->
+						    </div>				
+						</div>
+				        	
+        		<span class="ajaxResult" id="dateIndicator" style="display: none;"> <img src="/javalog-web/img/loading.gif" /> İşleminiz yapılıyor... </span>
+				
+				<br /><br />
+					<div class="interline">
+						<span class="count"><h:outputText id="commentCount" value="#{fn:length(makaleBean.selectedArticle.comments)}" /></span> Yorum 
+					</div>
+				<br />
+										
+				
+				<div id="comments2"></div>
+        		
+				<h:form id="comments" prependId="false">
+					<a4j:repeat var="comment" value="#{makaleBean.selectedArticle.comments}" rowKeyVar="say">
+							<div class="commentBody">
+								<div class="contentBox active" id="arjuna_comments">
+									<ul class="commentList commentListAlt">
+										<li id="comment-230" class="comment even thread-even depth-1">
+											<img width="40" height="40" class="avatar avatar-40 photo" src="http://0.gravatar.com/avatar/466dc28e15028c7353552022d2de1f9e?s=40&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D40&amp;r=G" alt=""/>		
+											<div class="message">
+												<div class="t">
+													<div></div>
+												</div>
+												<div class="i">
+													<div class="i2">
+														<span class="title"> 
+															by <b>#{empty comment.sender ? 'isimsiz' : comment.sender}</b> on								   	   	
+															<h:outputText value="#{comment.senddate}">
+													   	   		<f:convertDateTime dateStyle="long" timeZone="Turkey" type="both" />
+													   	   	</h:outputText>.
+														</span>
+														<h:commandLink action="#{makaleBean.deleteComment(comment.commentid)}" rendered="#{request.isUserInRole('admin')}" style="border: 0;" styleClass="fr delete_icon">
+														   	<h:graphicImage id="delImg" value="#{requestScope.contextPath}/images/delete.gif" alt="Yorumu Sil!"/>
+														   	<f:ajax render=":comments :commentCount :commentCount2" onevent="showLoader"/>
+													   	</h:commandLink>
+														<span class="links"></span>
+														<div id="commentbody-230">
+															<p>#{empty comment.commenttext ? 'no comment' : comment.commenttext}</p>
+														</div>
+													</div>
+												</div>
+												<div class="b">
+													<div></div>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="contentBox" id="arjuna_trackbacks">
+									<p class="noComments">No trackbacks yet.</p>	
+								</div>
+							</div>	
+							<!--  <div class="sprite_comment_right">asas</div>	-->	
+
+					</a4j:repeat>			
+				</h:form>			
+	</ui:define>
+</ui:composition>

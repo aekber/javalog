@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:eko="http://www.javalog.net/jsf/util"
+	  xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+	<ui:composition template="../WEB-INF/admin/atemplate.xhtml">
+
+		<ui:define name="title">Comments | Amanda Admin Template</ui:define>
+		
+		<ui:define name="scripts">
+	    	
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-1.7.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery-ui-1.8.16.custom.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.cookie.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.alerts.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.uniform.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.validate.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/jquery.tagsinput.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/charCount.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/ui.spinner.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/plugins/chosen.jquery.min.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/forms.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/general.js"></script>
+			<script type="text/javascript" src="#{request.contextPath}/adminci/js/custom/blog.js"></script>
+			
+			<h:outputStylesheet library="css" name="qrcode.css" target="head"/>
+	    
+	    </ui:define>
+		
+		<ui:define name="leftmenu">
+	
+		    <div class="vernav">
+		    	<ul>
+		        	<li><a href="/faces/zekber/javalog/administration/manageblog/">Posts</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/newpost/">Create New Post</a></li>
+		            <li class="current"><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/comments/" class="editor">Comments</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/articles/">Articles</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/subcategories/">Subcategories</a></li>
+		            <li><a href="#{request.contextPath}/faces/zekber/javalog/administration/manageblog/categories/">Categories</a></li>
+		        </ul>
+		        <a class="togglemenu"></a>
+		    </div><!--leftmenu-->
+	    
+	    </ui:define>
+		
+		<ui:define name="content">
+		
+			<div class="pageheader">
+	            <h1 class="pagetitle">Yorumlar</h1>
+
+	        </div><!--pageheader-->
+	        
+	        <div class="contentwrapper" id="contentwrapper">
+				<div class="contenttitle">
+					<h4>Comments</h4>
+				</div><!--contenttitle-->	
+				
+				<h:form id="form" prependId="false">
+
+					<rich:extendedDataTable value="#{adminBean.allArticles}" var="comment"
+                                    selection="#{adminBean.selection}" id="cmt_table" iterationStatusVar="it"
+                                    selectionMode="single" styleClass="stdtable">
+                		
+                		<a4j:ajax execute="@form" event="selectionchange" listener="#{adminBean.selectionListener}" render=":eko"/>
+                        <rich:column>
+			                <f:facet name="header">Sıra</f:facet>
+			                <h:outputText styleClass="con0" value="#{it.index+1}" />
+			            </rich:column>  
+			            <rich:column>
+			                <f:facet name="header">Yorum Eklemeye Açık mı?</f:facet>
+			                <h:selectBooleanCheckbox value="#{comment.commentsActive}">
+			                	<f:ajax execute="@this" event="click" listener="#{adminBean.commentListener}" />
+			                </h:selectBooleanCheckbox>
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">Article ID</f:facet>
+			                <h:outputText styleClass="con0" value="#{comment.articleid}" />
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">Article Tag</f:facet>
+			                <h:outputText styleClass="con0" value="#{comment.articleTag}" />
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">Subcategory</f:facet>
+			                <h:outputText styleClass="con1" value="#{comment.subcategory.subCategoryName}" />
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">Date</f:facet>
+			                <h:outputText styleClass="con0" value="#{comment.insertdate}" />
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">Comment Count</f:facet>
+			                <h:outputText styleClass="con0" value="#{fn:length(comment.comments)}" />
+			            </rich:column>
+			            <rich:column>
+			                <f:facet name="header">Popularity</f:facet>
+			                <h:outputText styleClass="con0" value="#{comment.popularity}" />
+			            </rich:column>
+		<!--         <f:facet name="footer">
+				             <rich:dataScroller page="#{adminBean.page}" />
+				        </f:facet>-->
+			        </rich:extendedDataTable>
+			        
+			    </h:form>
+    			
+    			<br/>
+    			<br/>
+    			
+    			<h:form id="eko" prependId="false">
+    				<a4j:outputPanel id="res" rendered="#{not empty adminBean.articleComments}">
+			            <div class="commentBody">
+								<div class="contentBox active" id="arjuna_comments">
+									<ul class="commentList commentListAlt">
+									<a4j:repeat  var="comment" value="#{adminBean.articleComments}" rowKeyVar="say">
+										<li id="comment-#{say+1}" class="#{comment.admin ? 'comment odd alt thread-odd thread-alt depth-1' : 'comment even thread-even depth-1'}">
+											<img width="40" height="40" class="avatar avatar-40 photo avatar-default"
+												src="#{comment.admin ? 'http://1.gravatar.com/avatar/582b66ad5ae1b69c7601a990cb9a661a?s=40&amp;d=identicon&amp;r=PG' : 'http://0.gravatar.com/avatar/?d=identicon&amp;s=40'}" alt=""/>			
+											<div class="message">
+												<div class="t">
+													<div></div>
+												</div>
+												<div class="i">
+													<div class="i2">
+														<span class="title"> 
+															##{say+1} | written by <b>#{empty comment.sender ? 'isimsiz' : comment.sender}</b> on								   	   	
+															<h:outputText value="#{comment.senddate}">
+																<f:convertDateTime dateStyle="long" timeZone="Turkey" type="both" />
+															</h:outputText>
+														</span>
+														<a4j:commandLink action="#{adminBean.deleteComment(comment.commentid)}" rendered="#{request.isUserInRole('admin')}" style="margin-top: -16px;float: right;border: 0;">
+															<h:graphicImage id="delImg" value="#{requestScope.contextPath}/resources/images/delete.gif"/>
+															<f:setPropertyActionListener target="#{adminBean.selectedComment}" value="#{comment}"/>
+															<a4j:ajax render="eko cmt_table"/>
+														</a4j:commandLink>
+														<h:selectBooleanCheckbox id="opencmt" name="check2" value="#{comment.activated}" style="margin-top: -14px;float: right;margin-right:20px;">
+															<a4j:ajax listener="#{adminBean.commentListener}"/>
+														</h:selectBooleanCheckbox>
+														<span class="links"></span>
+															<div id="commentbody-#{say+1}">
+																<p>#{empty comment.commenttext ? 'no comment' : comment.commenttext}</p>
+															</div>
+													</div>
+												</div>
+												<div class="b">
+													<div></div>
+												</div>
+											</div>
+											<div style="clear: both;"></div>
+										</li>
+									</a4j:repeat>
+									</ul>
+								</div>
+							</div>
+		        	</a4j:outputPanel>
+				</h:form>
+        
+			</div><!-- contentwrapper -->
+			
+		</ui:define>
+	
+	</ui:composition>
+	
+</html>

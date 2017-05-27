@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+<h:head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    
+	<h:outputStylesheet library="css" name="style.css" target="head"/>
+	<h:outputStylesheet library="css" name="main.css" target="head"/>
+	<h:outputStylesheet library="css" name="comment.css" target="head"/>
+	<h:outputStylesheet library="css" name="rating.css" target="head"/>
+	<h:outputStylesheet library="css" name="qrcode.css" target="head"/>
+	<h:outputStylesheet library="css" name="general.css" target="head"/>
+  	<h:outputStylesheet library="css" name="shCore.css" target="head"/>
+  	<h:outputStylesheet library="css" name="shThemeDefault.css" target="head"/>
+
+	<!-- <f:loadBundle basename="example.i18n" var="i18n" /> -->
+	
+	  	<script type="text/javascript">
+	  	SyntaxHighlighter.all();
+  	</script>
+  	
+	<script language="javascript" type="text/javascript">
+	
+		function showLoader(data) {
+			  showLoaderRegion(data, "dateIndicator");
+		}
+
+		function showLoaderRegion(data, regionId) {
+			  if (data.status == "begin") {
+				  document.getElementById(regionId).style.display = "inline";
+			  } else if (data.status == "success") {
+				  document.getElementById(regionId).style.display = "none";
+			  }
+			}
+	</script>    	
+  	
+<!--
+	<script>
+		A4J.AJAX.onExpired = function(loc, expiredMsg){
+		    if(window.confirm(expiredMsg)){
+		      return loc;
+		    } else {
+		     return false;
+		    }
+		}
+	</script> 
+-->
+  	
+  	<script type="text/javascript">
+		window.addEvent('domready', function(){check = new FormCheck('third', {
+			display : {
+				fadeDuration : 500,
+				errorsLocation : 1,
+				indicateErrors : 1,
+				showErrors : 0
+			}
+		})});
+	</script>
+
+	<h:outputScript library="js" name="jquery.js" target="head"/>
+	<h:outputScript library="js" name="behavior.js" target="head"/>
+	<h:outputScript library="js" name="rating.js" target="head"/>
+	<h:outputScript library="js" name="shCore.js" target="head"/>
+  	<h:outputScript library="js" name="shBrushJava.js" target="head"/>
+  	<h:outputScript library="js" name="shBrushJScript.js" target="head"/>
+  	<h:outputScript library="js" name="shBrushSql.js" target="head"/>
+  	<h:outputScript library="js" name="shBrushXml.js" target="head"/>		
+	<h:outputScript library="js" name="mootools.js" target="head"/>
+	<h:outputScript library="js" name="niceforms.js" target="head"/>
+	<h:outputScript library="js" name="formcheck.js" target="head"/>
+
+  	<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'/>       	
+	<link rel="icon" type="image/gif" href="#{request.contextPath}/img/favicon.ico"/>
+      
+	<title><ui:insert name="title"/></title>
+	
+</h:head>
+
+<h:body>
+
+	<div class="content">
+			<div class="preheader"></div>
+		
+			<div class="header" >
+				<div class="title">javalog.net</div>
+				<div class="slogan">Bir Javalog'un Gunlugu</div>
+			</div>
+					
+			<div id="nav">
+				<ul>
+					<li><a href="#{request.contextPath}/faces/home/">Anasayfa</a></li>
+					<li><a href="#">Makaleler</a></li>
+					<li><a href="#">Java</a></li>
+					<li><a href="#">Ordan Burdan</a></li>
+					<li><a href="#{request.contextPath}/faces/about/">Hakkinda</a></li>
+					<li>
+						<h:form rendered="#{request.isUserInRole('admin')}">
+							<h:commandLink action="#{makaleBean.logout()}" value="Logout" />
+						</h:form>
+					</li>
+				</ul>
+				<!-- Search form -->                  
+				<div class="searchform" style="float: right;margin-right:70px">
+					<h:form id="searchOps">
+						<h:inputText id="searchKey" name="field" class="field" value="#{makaleBean.searchText}"/>
+						<h:commandButton name="button" class="button" value="Ara" onclick="if(document.getElementById('searchOps:searchKey').value == ''){return false;}" action="search?faces-redirect=true"/>
+					</h:form>
+				</div>
+			</div>
+		
+			<div class="main_content">
+				<div class="sd_right">
+					<div class="text_padding">
+						
+						<div class="arrowlistmenu">
+							<h2 class="menuheader">Son Eklenenler</h2>
+							<ui:insert name="lastinsert"></ui:insert>
+						</div>
+						
+						<br />
+						
+						<div class="arrowlistmenu">
+							<h2 class="menuheader">En Cok Okunanlar</h2>
+							<ui:insert name="mostread"></ui:insert>
+						</div>
+							 
+						<br />
+							 
+						 <div class="arrowlistmenu">
+							<h3 class="menuheader">Kategoriler</h3>
+							<ui:insert name="category"></ui:insert>
+						</div>
+							
+						<br />
+  								
+						 <div class="arrowlistmenu">
+							<h2 class="menuheader">Arsiv</h2>
+							<ui:insert name="archive"></ui:insert>
+						</div>
+							 
+						<br />
+						 
+						<div class="arrowlistmenu">
+							<h2 class="menuheader">Etiketler</h2>
+							<ui:insert name="tags"></ui:insert> 	
+						</div>
+							 
+					</div>
+				</div>
+			
+				<div class="sd_left">
+					<div class="text_padding">	
+						<ui:insert name="content"></ui:insert> 							
+					</div>
+				</div>
+	
+				<div class="footer">
+					<div class="padding"> 						
+						Copyright 2013
+	                    <a href="http://www.javalog.net"><strong>javalog.net</strong></a>
+	                    &nbsp;Bir Javalog'un Gunlugu
+					</div>
+				</div>
+			</div>
+	</div>
+    
+</h:body>
+</html>

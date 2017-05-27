@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 13.Eki.2010 10:25:24 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping default-lazy="false">
+	<class catalog="jsf" name="org.ekber.domain.Article" table="article">
+		<id name="articleid" type="java.lang.Integer">
+			<column name="articleid" />
+			<generator class="identity" />
+		</id>
+
+		<many-to-one class="org.ekber.domain.SubCategory" name="subcategory" not-null="true">
+			<column name="subcategoryid" />
+		</many-to-one>
+
+		<property generated="never" lazy="false" name="popularity" type="java.lang.Integer">
+			<column name="popularity" />
+		</property>
+
+		<property generated="never" lazy="false" name="articleTag" type="string">
+			<column length="100" name="articletag" />
+		</property>
+
+		<property generated="never" lazy="false" name="previewStar" type="java.lang.Float">
+			<column name="previewstar" />
+		</property>
+
+		<property generated="never" lazy="false" name="preview" type="string">
+			<column length="65535" name="preview" not-null="true" />
+		</property>
+
+		<property generated="never" lazy="false" name="content" type="string">
+			<column length="16777215" name="content" not-null="true" />
+		</property>
+
+		<property generated="never" lazy="false" name="insertdate" type="timestamp">
+			<column length="19" name="insertdate" />
+		</property>
+		
+		<property name="commentsActive" type="boolean">
+			<column name="iscommentsactive" length="1" />
+		</property>
+
+		<bag name="comments" order-by="senddate asc" table="comments" cascade="all">
+			<key column="articleid" />
+			<one-to-many class="org.ekber.domain.Comments" />
+		</bag>
+
+		<bag name="articleRates" table="user_rate" cascade="all">
+			<key column="ratedarticleid" />
+			<one-to-many class="org.ekber.domain.UserRate" />
+		</bag>
+		
+		<bag name="articleTags" table="tag" cascade="all-delete-orphan">
+			<key column="tagarticleid"/>
+			<one-to-many class="org.ekber.domain.Tag" />
+		</bag>
+	</class>
+	
+	<query name="getPopularArticles">
+		FROM Article a ORDER BY a.popularity DESC
+	</query>
+	
+</hibernate-mapping>
