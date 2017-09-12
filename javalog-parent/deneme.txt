@@ -1,7 +1,8 @@
+package com.trivago.assignment;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +18,7 @@ public class DataLoader
 {     
     private static Logger LOG = LoggerFactory.getLogger(DataLoader.class);
 
-    public <T> List<T> loadObjectList(Class<T> type, String fileName) 
+    public static <T> List<T> loadObjectList(Class<T> type, String fileName) 
     {
         try {
             CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
@@ -26,13 +27,16 @@ public class DataLoader
             //BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(new File("C:\\Users\\T38604\\Desktop\\eko\\deneme\\FileConverter\\resources\\" + fileName)), "UTF8"));
             
             
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
+            //InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
             
             //Charset inputCharset = Charset.forName("UTF-8");
             //InputStreamReader inputStreamReader = new InputStreamReader(inputStream, inputCharset);
             
-            Reader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-            MappingIterator<T> readValues = mapper.readerFor(type).with(bootstrapSchema).readValues(inputStreamReader);
+            InputStream refStream = ClassLoader.getSystemResourceAsStream(fileName);
+            BufferedReader br = new BufferedReader(new InputStreamReader(refStream, Charset.forName("UTF-8")));
+            
+            //Reader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+            MappingIterator<T> readValues = mapper.readerFor(type).with(bootstrapSchema).readValues(br);
             return readValues.readAll();
         } catch (Exception e) {
             LOG.error("Error occurred while loading object list from file " + fileName, e);
@@ -40,7 +44,6 @@ public class DataLoader
         }
     }
 }
-
 
 
 
@@ -59,8 +62,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class Converter {
 
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
-		DataLoader loader = new DataLoader();
-        List<Hotel> hotelList = loader.loadObjectList(Hotel.class, "hotels.csv");
+        List<Hotel> hotelList = DataLoader.loadObjectList(Hotel.class, "hotels.csv");
         
         
         //TODO:Hotel in her bir property sine null kontrolü ekle
